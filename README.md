@@ -39,3 +39,49 @@ LaptopsGo aims to provides an online marketplace with basic UI for user to quick
 
 -   Submit products to sell.
 -   View , Edit, Remove products.
+
+## Wireframe
+
+#### Home page:
+
+![LaptopsGo HomePage](./assets/wireframes/LaptopsGo_Home.png)
+
+#### Product detail page:
+
+![LaptopsGo DetailPage](./assets/wireframes/LaptopsGo_Details.png)
+
+#### Cart page:
+
+![LaptopsGo CartPage](./assets/wireframes/LaptopsGo_Cart.png)
+
+#### CheckOut page:
+
+![LaptopsGo CheckOutPage](./assets/wireframes/LaptopsGo_CheckOut.png)
+
+#### SellerDashboard page: (only for seller role)
+
+![LaptopsGo SellerDashboard](./assets/wireframes/LaptopsGo_SellerDashBoardPage.png)
+
+#### Submit product page: (only for seller role)
+
+![LaptopsGo Submit](./assets/wireframes/LaptopsGo_SubmitProduct.png)
+
+#### Review report page: (only for admin role)
+
+![LaptopsGo Report page](./assets/wireframes/LaptopsGo_ReviewReport.png)
+
+#### Account list page: (only for admin role)
+
+![LaptopsGo accountList page](./assets/wireframes/LaptopsGo_AccountList.png)
+
+#### Login page:
+
+![LaptopsGo accountList page](./assets/wireframes/LaptopsGo_Login.png)
+
+#### Register page:
+
+![LaptopsGo accountList page](./assets/wireframes/LaptopsGo_Register.png)
+
+#### Account page:
+
+![LaptopsGo accountList page](./assets/wireframes/LaptopsGo_AccountManager.png)
