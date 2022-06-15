@@ -40,6 +40,10 @@ LaptopsGo aims to provides an online marketplace with basic UI for user to quick
 -   Submit products to sell.
 -   View , Edit, Remove products.
 
+## Sitemap
+
+![LaptopsGo SiteMap](./assets/sitemap.png)
+
 ## Wireframe
 
 #### Home page:
