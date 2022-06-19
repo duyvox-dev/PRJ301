@@ -100,4 +100,4 @@ LaptopsGo aims to provides an online marketplace with basic UI for user to quick
 
 The database diagram bellow shows how the system's logical design is implemented in the database. Three roles Buyer, Seller and Admin entities in logical design are grouped into only one entity User in physical design.
 
-![LaptopsGo Physical Database Design](./assets/database-design/physical-design)
+![LaptopsGo Physical Database Design](./assets/database-design/physical-design.png)
