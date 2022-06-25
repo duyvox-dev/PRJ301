@@ -1,0 +1,4 @@
+com\fptuni\prj301\demo\photo\PhotoDTO.class
+com\fptuni\prj301\demo\servlet\PhotoServlet.class
+com\fptuni\prj301\demo\photo\PhotoDAO.class
+com\fptuni\prj301\demo\utils\DBUtils.class
