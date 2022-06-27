@@ -26,27 +26,27 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>CartControllers</servlet-name>
-        <url-pattern>/Cart</url-pattern>
+        <url-pattern>/Cart/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserControllers</servlet-name>
-        <url-pattern>/User</url-pattern>
+        <url-pattern>/User/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrderControllers</servlet-name>
-        <url-pattern>/Order</url-pattern>
+        <url-pattern>/Order/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminControllers</servlet-name>
-        <url-pattern>/Admin</url-pattern>
+        <url-pattern>/Admin/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductControllers</servlet-name>
-        <url-pattern>/Product</url-pattern>
+        <url-pattern>/Product/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SellerControllers</servlet-name>
-        <url-pattern>/Seller</url-pattern>
+        <url-pattern>/Seller/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
