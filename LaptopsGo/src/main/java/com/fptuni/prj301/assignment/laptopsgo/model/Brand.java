@@ -7,18 +7,20 @@ package com.fptuni.prj301.assignment.laptopsgo.model;
 
 /**
  *
- * @author voduy
+ * @author tiepk
  */
-public class Category {
-   int id;
-   String name;
+public class Brand {
+    int id;
+    String name;
+    String imagePath;
 
-    public Category(int id, String name) {
+    public Brand(int id, String name, String imagePath) {
         this.id = id;
         this.name = name;
+        this.imagePath = imagePath;
     }
 
-    public Category() {
+    public Brand() {
     }
     
     
@@ -38,7 +40,14 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-   
-   
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+    
     
 }
