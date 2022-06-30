@@ -1,6 +1,6 @@
 # ** LaptopsGo **
 
-## Convenience marketplace to trade laptop from new to used for everybody.
+## Convenient marketplace to trade laptop from new to used for everybody.
 
 LaptopsGo aims to provide an online marketplace for user to quickly and easily buy and sell their product, LaptopsGo connects retail store or inviduals who are looking for a platform to sell their product and buyer who want to buy a high quality product.
 
