@@ -6,6 +6,7 @@ com\fptuni\prj301\assignment\laptopsgo\dbmanager\ReportManager.class
 com\fptuni\prj301\assignment\laptopsgo\controller\OrderControllers.class
 com\fptuni\prj301\assignment\laptopsgo\dbmanager\CartManager.class
 com\fptuni\prj301\assignment\laptopsgo\model\Order.class
+com\fptuni\prj301\assignment\laptopsgo\model\Brand.class
 com\fptuni\prj301\assignment\laptopsgo\model\Category.class
 com\fptuni\prj301\assignment\laptopsgo\controller\UserControllers.class
 com\fptuni\prj301\assignment\laptopsgo\controller\ProductControllers.class
