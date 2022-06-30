@@ -1,8 +1,8 @@
 # ** LaptopsGo **
 
-## Convinience marketplace to trade laptop from new to used for everybody.
+## Convenience marketplace to trade laptop from new to used for everybody.
 
-LaptopsGo aims to provides an online marketplace with basic UI for user to quickly and easily buy and sell their product(laptop only), building a brigde to connect retail store that are looking for a platform to sell their product and buyer who want to buy a high quality product.
+LaptopsGo aims to provide an online marketplace for user to quickly and easily buy and sell their product, LaptopsGo connects retail store or inviduals who are looking for a platform to sell their product and buyer who want to buy a high quality product.
 
 ## Team
 
@@ -15,25 +15,23 @@ LaptopsGo aims to provides an online marketplace with basic UI for user to quick
 -   Student, Officer, Online shop, and who want to buy and sell laptop
 
 ## Features
-
+#### All user
 -   Create accounts.
 -   Login, Logout.
--   View, sort, search product.
+-   View, filter, search product.
 -   View and edit account.
 
 #### Admin
 
 -   Ban user.
--   Search, Remove seller's product.
--   Manage categories.
--   Review, Approve, Ignore reports.
+-   Search, Remove product.
+-   Manage categories, brands.
 
 #### Buyer:
 
 -   Add products to cart.
--   View, change quantity, Remove cart items.
+-   View, Remove cart items.
 -   Checkout.
--   Report products.
 
 #### Seller:
 
@@ -70,9 +68,6 @@ LaptopsGo aims to provides an online marketplace with basic UI for user to quick
 
 ![LaptopsGo Submit](./assets/wireframes/LaptopsGo_SubmitProduct.png)
 
-#### Review report page: (only for admin role)
-
-![LaptopsGo Report page](./assets/wireframes/LaptopsGo_ReviewReport.png)
 
 #### Account list page: (only for admin role)
 
