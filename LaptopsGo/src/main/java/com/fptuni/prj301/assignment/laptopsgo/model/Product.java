@@ -5,44 +5,42 @@
  */
 package com.fptuni.prj301.assignment.laptopsgo.model;
 
-import java.sql.Date;
 
 /**
  *
  * @author voduy
  */
 public class Product {
+   int id;
+   int categoryID;
+   int brandID;
+   int sellerID;
+   String name;
+   int price;
+   String createdDate;
+   String description;
+   String lastModefiedDate;
+   int quantity;
+   int soldQuantity;
 
-    private int id;
-    private int categoryID;
-    private int brandID;
-    private int sellerID;
-    private String name;
-    private int price;
-    private int description;
-    private String imageURL;
-    private int quantity;
-    private int soldQuantity;
-    private Date createdDate;
-    private Date lastModefiedDate;
-
-    public Product() {
-    }
-
-    public Product(int id, int categoryID, int brandID, int sellerID, String name, int price, int description, String imageURL, int quantity, int soldQuantity, Date createdDate, Date lastModefiedDate) {
+    public Product(int id, int categoryID, int brandID, int sellerID, String name, int price, String createdDate, String description, String lastModefiedDate, int quantity, int soldQuantity) {
         this.id = id;
         this.categoryID = categoryID;
         this.brandID = brandID;
         this.sellerID = sellerID;
         this.name = name;
         this.price = price;
+        this.createdDate = createdDate;
         this.description = description;
-        this.imageURL = imageURL;
+        this.lastModefiedDate = lastModefiedDate;
         this.quantity = quantity;
         this.soldQuantity = soldQuantity;
-        this.createdDate = createdDate;
-        this.lastModefiedDate = lastModefiedDate;
     }
+
+    public Product() {
+    }
+    
+    
 
     public int getId() {
         return id;
@@ -92,20 +90,28 @@ public class Product {
         this.price = price;
     }
 
-    public int getDescription() {
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(int description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public String getLastModefiedDate() {
+        return lastModefiedDate;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setLastModefiedDate(String lastModefiedDate) {
+        this.lastModefiedDate = lastModefiedDate;
     }
 
     public int getQuantity() {
@@ -123,21 +129,6 @@ public class Product {
     public void setSoldQuantity(int soldQuantity) {
         this.soldQuantity = soldQuantity;
     }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getLastModefiedDate() {
-        return lastModefiedDate;
-    }
-
-    public void setLastModefiedDate(Date lastModefiedDate) {
-        this.lastModefiedDate = lastModefiedDate;
-    }
-
+   
+   
 }

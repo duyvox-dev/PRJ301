@@ -7,19 +7,21 @@ package com.fptuni.prj301.assignment.laptopsgo.model;
 
 /**
  *
- * @author tiepk
+ * @author voduy
  */
 public class Category {
-    private int id;
-    private String name;
-
-    public Category() {
-    }
+   int id;
+   String name;
 
     public Category(int id, String name) {
         this.id = id;
         this.name = name;
     }
+
+    public Category() {
+    }
+    
+    
 
     public int getId() {
         return id;
@@ -36,6 +38,7 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-    
+   
+   
     
 }
