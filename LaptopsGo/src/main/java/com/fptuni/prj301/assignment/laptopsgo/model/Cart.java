@@ -11,21 +11,27 @@ package com.fptuni.prj301.assignment.laptopsgo.model;
  * @author voduy
  */
 public class Cart {
-    int buyerID;
-    int productID;
-    int quantity;
-
-    public Cart(int buyerID, int productID, int quantity) {
-        this.buyerID = buyerID;
-        this.productID = productID;
-        this.quantity = quantity;
-    }
+    private int id;
+    private int buyerID;
+    private int productID;
 
     public Cart() {
     }
 
-    
-    
+    public Cart(int id, int buyerID, int productID) {
+        this.id = id;
+        this.buyerID = buyerID;
+        this.productID = productID;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getBuyerID() {
         return buyerID;
     }
@@ -41,14 +47,9 @@ public class Cart {
     public void setProductID(int productID) {
         this.productID = productID;
     }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+    
+    
+    
     
     
 }

@@ -12,15 +12,18 @@ package com.fptuni.prj301.assignment.laptopsgo.model;
  * @author voduy
  */
 public class User {
-   int id;
-   String username;
-   String password;
-   String email;
-   String fullname;
-   String role;
-   Integer banStatus;
+   private int id;
+   private String username;
+   private String password;
+   private String email;
+   private String fullname;
+   private String role;
+   private int banStatus;
 
-    public User(int id, String username, String password, String email, String fullname, String role, Integer banStatus) {
+    public User() {
+    }
+
+    public User(int id, String username, String password, String email, String fullname, String role, int banStatus) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -29,11 +32,6 @@ public class User {
         this.role = role;
         this.banStatus = banStatus;
     }
-
-    public User() {
-    }
-    
-    
 
     public int getId() {
         return id;
@@ -83,13 +81,19 @@ public class User {
         this.role = role;
     }
 
-    public Integer getBanStatus() {
+    public int getBanStatus() {
         return banStatus;
     }
 
-    public void setBanStatus(Integer banStatus) {
+    public void setBanStatus(int banStatus) {
         this.banStatus = banStatus;
     }
+   
+   
+
+   
+
+    
    
    
     
