@@ -1,0 +1,84 @@
+body {
+  background-color: rgb(248, 250, 252);
+}
+
+.logo {
+  text-decoration: none;
+  color: #094067;
+  display: flex;
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login__main {
+  background: white;
+  padding: 5rem 2rem;
+  width: 500px;
+  max-width: 500px;
+}
+.login__form {
+  margin-top: 2rem;
+}
+.login__btn {
+  display: block;
+  font-size: 20px;
+  background: #3da9fc;
+  color: white;
+  border: 1px solid transparent;
+  outline: none;
+  margin: 0 auto;
+  padding: 10px 30px;
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+}
+.login__btn:hover {
+  color: #3da9fc;
+  background: transparent;
+  border-color: #3da9fc;
+}
+
+.link-to {
+  margin-top: 20px;
+  text-align: right;
+}
+.link-to a {
+  color: #3da9fc;
+}
+
+.input__group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 20px;
+}
+.input__group label {
+  width: 20%;
+}
+.input__group input {
+  flex: 1;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  padding: 10px 20px;
+  color: #094067;
+}
+.input__group.checkbox {
+  margin-top: 20px;
+  font-size: 24px;
+}
+.input__group.checkbox label {
+  width: initial;
+}
+.input__group.checkbox input {
+  flex: initial;
+}
+
+/*# sourceMappingURL=login.css.map */
