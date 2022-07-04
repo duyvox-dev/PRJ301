@@ -10,20 +10,18 @@ package com.fptuni.prj301.assignment.laptopsgo.model;
  * @author tiepk
  */
 public class Brand {
-    int id;
-    String name;
-    String imagePath;
-
-    public Brand(int id, String name, String imagePath) {
-        this.id = id;
-        this.name = name;
-        this.imagePath = imagePath;
-    }
+    private int id;
+    private String name;
+    private String imageURL;
 
     public Brand() {
     }
-    
-    
+
+    public Brand(int id, String name, String imageURL) {
+        this.id = id;
+        this.name = name;
+        this.imageURL = imageURL;
+    }
 
     public int getId() {
         return id;
@@ -41,13 +39,15 @@ public class Brand {
         this.name = name;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
+    
+    
     
     
 }

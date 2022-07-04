@@ -5,6 +5,8 @@
  */
 package com.fptuni.prj301.assignment.laptopsgo.model;
 
+import java.sql.Date;
+
 
 
 /**
@@ -12,45 +14,33 @@ package com.fptuni.prj301.assignment.laptopsgo.model;
  * @author voduy
  */
 public class Order {
-    int ProductID;
-    int quantity;
-    int sellerID;
-    int buyerID;
+    private int id;
+    private int buyerID;
+    private String address;
+    private String phone;
+    private String email;
+    private Date createdDate;
+    private double totalCost;
 
     public Order() {
     }
 
-    
-    
-    public Order(int ProductID, int quantity, int sellerID, int buyerID) {
-        this.ProductID = ProductID;
-        this.quantity = quantity;
-        this.sellerID = sellerID;
+    public Order(int id, int buyerID, String address, String phone, String email, Date createdDate, double totalCost) {
+        this.id = id;
         this.buyerID = buyerID;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.createdDate = createdDate;
+        this.totalCost = totalCost;
     }
 
-    public int getProductID() {
-        return ProductID;
+    public int getId() {
+        return id;
     }
 
-    public void setProductID(int ProductID) {
-        this.ProductID = ProductID;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public int getSellerID() {
-        return sellerID;
-    }
-
-    public void setSellerID(int sellerID) {
-        this.sellerID = sellerID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getBuyerID() {
@@ -60,6 +50,48 @@ public class Order {
     public void setBuyerID(int buyerID) {
         this.buyerID = buyerID;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+    
+    
     
     
 }
