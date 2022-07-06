@@ -12,13 +12,8 @@ package com.fptuni.prj301.assignment.laptopsgo.model;
 public class OrderDetail {
     private int orderID;
     private int productID;
-
+    private double price;
     public OrderDetail() {
-    }
-
-    public OrderDetail(int orderID, int productID) {
-        this.orderID = orderID;
-        this.productID = productID;
     }
 
     public int getOrderID() {
@@ -36,6 +31,21 @@ public class OrderDetail {
     public void setProductID(int productID) {
         this.productID = productID;
     }
-    
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public OrderDetail(int orderID, int productID, double price) {
+        this.orderID = orderID;
+        this.productID = productID;
+        this.price = price;
+    }
+
+   
     
 }
