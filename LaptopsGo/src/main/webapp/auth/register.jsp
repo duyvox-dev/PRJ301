@@ -3,8 +3,8 @@
     Created on : Jun 30, 2022, 4:10:18 PM
     Author     : vobao
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="errors" value="${requestScope.errors}"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -47,119 +47,97 @@
         <link rel="stylesheet" href="../css/login.css" />
     </head>
     <body>
-        <div class="login__page">
-            <c:set var="errors" value="${requestScope.errors}"/>
 
-            <c:if test="${not empty errors['username']}">
-                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header">
-                        <img src="..." class="rounded mr-2" alt="...">
-                        <strong class="mr-auto">Register error</strong>
-                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="toast-body">
+        <div class="login__page">
+            <div style="position: absolute; top: 0; right: 0;">
+
+                <c:if test="${not empty errors['username']}">
+                    <div>
                         ${errors['username']}
                     </div>
-                </div>
 
-            </c:if>
-        </c:if>
-        <c:if test="${not empty errors['email']}">
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <img src="..." class="rounded mr-2" alt="...">
-                    <strong class="mr-auto">Register error</strong>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="toast-body">
-                    ${errors['email']}
-                </div>
+                </c:if>
+
+                <c:if test="${not empty errors['email']}">
+                    <div>
+                        ${errors['email']}
+                    </div>
+
+                </c:if>
+                <c:if test="${not empty errors['confirm-password']}">
+                    <div>
+                        ${errors['confirm-password']}
+                    </div>
+                </c:if>
             </div>
-        </c:if>
-        <c:if test="${not empty errors['confirm-password']}">
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <img src="..." class="rounded mr-2" alt="...">
-                    <strong class="mr-auto">Register error</strong>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="toast-body">
-                    ${errors['confirm-password']}
-                </div>
+
+            <div class="login__main shadow-sm">
+                <a class="logo" href="#">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <span>LaptopsGo</span>
+                </a>
+                <form action="../User/register" class="login__form" method = "POST">
+                    <div class="input__group">
+                        <label for="username">Username </label>
+                        <input type="text" name="username" required />
+
+                    </div>
+                    <div class="input__group">
+                        <label for="password">Password </label>
+                        <input type="password" name="password" required minLength="8" />
+                    </div>
+                    <div class="input__group">
+                        <label for="confirm-password">Confirm password </label>
+                        <input
+                            type="password"
+                            name="confirm-password"
+                            required
+                            minLength="8"
+                            />
+
+                    </div>
+                    <div class="input__group">
+                        <label for="fullname">Full name </label>
+                        <input type="text" name="fullname" required />
+                    </div>
+                    <div class="input__group">
+                        <label for="email">Email </label>
+                        <input type="email" name="email" required />
+                    </div>
+                    <div class="input__group checkbox">
+                        <label for="role">Role </label>
+                        <select name="role" id="">
+                            <option value="buyer" default>buyer</option>
+                            <option value="seller">seller</option>
+                        </select>
+
+                    </div>
+                    <button class="login__btn">Register</button>
+                </form>
+                <p class="link-to">
+                    <span>Already have account ? </span>
+                    <a href="${pageContext.request.contextPath}/auth/login.jsp" class="">Login</a>
+                </p>
             </div>
-        </c:if>
-        <div class="login__main shadow-sm">
-            <a class="logo" href="#">
-                <i class="fa-solid fa-laptop-code"></i>
-                <span>LaptopsGo</span>
-            </a>
-            <form action="../User/register" class="login__form" method = "POST">
-                <div class="input__group">
-                    <label for="username">Username </label>
-                    <input type="text" name="username" required />
-                </div>
-                <div class="input__group">
-                    <label for="password">Password </label>
-                    <input type="password" name="password" required minLength="8" />
-                </div>
-                <div class="input__group">
-                    <label for="confirm-password">Confirm password </label>
-                    <input
-                        type="password"
-                        name="confirm-password"
-                        required
-                        minLength="8"
-                        />
-
-                </div>
-                <div class="input__group">
-                    <label for="fullname">Full name </label>
-                    <input type="text" name="fullname" required />
-                </div>
-                <div class="input__group">
-                    <label for="email">Email </label>
-                    <input type="email" name="email" required />
-                </div>
-                <div class="input__group checkbox">
-                    <label for="role">Role </label>
-                    <select name="role" id="">
-                        <option value="buyer" default>buyer</option>
-                        <option value="seller">seller</option>
-                    </select>
-
-                </div>
-                <button class="login__btn">Register</button>
-            </form>
-            <p class="link-to">
-                <span>Already have account ? </span>
-                <a href="${pageContext.request.contextPath}/auth/login.jsp" class="">Login</a>
-            </p>
         </div>
-    </div>
 
 
 
-    <!-- Bootstrap -->
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"
-    ></script>
-    <!-- jquery -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    ></script>
+        <!-- Bootstrap -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"
+        ></script>
+        <!-- jquery -->
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
 
-    <!--  -->
-    <script src="./js/script.js"></script>
-</body>
+        <!--  -->
+        <script src="./js/script.js"></script>
+    </body>
 </html>
