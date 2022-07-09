@@ -21,20 +21,24 @@ public class CategoryManager {
     public boolean insertCategory(Category cate) {
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO Category VALUES ( ? )");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO ProductCategory (name) VALUES ( ? )");
             ps.setString(1, cate.getName());
-            ps.executeQuery();
+            
+            int res = ps.executeUpdate();
+            if (res >=0) {
+                return true;
+            }
         } catch (Exception e) {
-
+            System.out.println(e);
         }
-        return true;
+        return false;
     }
 
     public int getSize() {
         Category cate = new Category();
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Select * from Category");
+            PreparedStatement ps = con.prepareStatement("Select * from ProductCategory");
             int count = 0;
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -42,7 +46,7 @@ public class CategoryManager {
             }
             return count;
         } catch (Exception e) {
-
+            System.out.println(e);
         }
         return -1;
     }
@@ -51,7 +55,7 @@ public class CategoryManager {
         ArrayList<Category> cates = new ArrayList<>();
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Select * from Category");
+            PreparedStatement ps = con.prepareStatement("Select * from ProductCategory");
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -68,7 +72,7 @@ public class CategoryManager {
         Category gcate = null;
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Select * from Category where id = ? ");
+            PreparedStatement ps = con.prepareStatement("Select * from ProductCategory where id = ? ");
             ps.setInt(1, cateId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -77,7 +81,7 @@ public class CategoryManager {
                 gcate.setName(rs.getString("name"));
             }
         } catch (Exception e) {
-
+            System.out.println(e);
         }
         return gcate;
     }
@@ -86,7 +90,7 @@ public class CategoryManager {
         Category gcate = null;
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Select * from Category where name = ? ");
+            PreparedStatement ps = con.prepareStatement("Select * from ProductCategory where name = ? ");
             ps.setString(1, cateName);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -95,7 +99,7 @@ public class CategoryManager {
                 gcate.setName(rs.getString("name"));
             }
         } catch (Exception e) {
-
+            System.out.println(e);
         }
         return gcate;
     }
@@ -103,24 +107,33 @@ public class CategoryManager {
     public boolean updateCategory(Category newCate) {
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Update Category Set name = ? where id = ?");
+            PreparedStatement ps = con.prepareStatement("Update ProductCategory Set name = ? where id = ?");
             ps.setString(1, newCate.getName());
-            ps.execute();
+            ps.setInt(2, newCate.getId());
+            
+            int res = ps.executeUpdate();
+            if (res >= 0){
+                return true;
+            }
         } catch (Exception e) {
-
+            System.out.println(e);
         }
-        return true;
+        return false;
     }
 
     public boolean deleteCategory(int cateId) {
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Delete from Category where id = ?");
+            PreparedStatement ps = con.prepareStatement("Delete from ProductCategory where id = ?");
             ps.setInt(1, cateId);
-            ps.execute();
+            
+            int res =ps.executeUpdate();
+            if (res >= 0){
+                return true;
+            }
         } catch (Exception e) {
-
+            System.out.println(e);
         }
-        return true;
+        return false;
     }
 }

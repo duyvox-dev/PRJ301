@@ -16,19 +16,23 @@ import java.util.ArrayList;
  *
  * @author vobao
  */
-// add brand
 public class BrandManager {
-
+// add brand
     public boolean insertBrand(Brand brand) {
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO Brand VALUES ( ? )");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO ProductBrand (name, imageURL) VALUES (?,?)");
             ps.setString(1, brand.getName());
-            ps.executeQuery();
+            ps.setString(2, brand.getImageURL());
+            
+            int res = ps.executeUpdate();
+            if (res >= 0){
+                return true;
+            }
         } catch (Exception e) {
-
+            System.out.println(e);
         }
-        return true;
+        return false;
     }
 // get size    
 
@@ -36,7 +40,7 @@ public class BrandManager {
         Brand brand = new Brand();
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Select * from Brand");
+            PreparedStatement ps = con.prepareStatement("Select * from ProductBrand");
             int count = 0;
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -44,7 +48,7 @@ public class BrandManager {
             }
             return count;
         } catch (Exception e) {
-
+            System.out.println(e);
         }
         return -1;
     }
@@ -54,7 +58,7 @@ public class BrandManager {
         ArrayList<Brand> brand = new ArrayList<>();
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Select * from Brand");
+            PreparedStatement ps = con.prepareStatement("Select * from ProductBrand");
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -72,7 +76,7 @@ public class BrandManager {
         Brand gbrand = null;
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Select * from Brand where id = ? ");
+            PreparedStatement ps = con.prepareStatement("Select * from ProductBrand where id = ? ");
             ps.setInt(1, brandId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -82,7 +86,7 @@ public class BrandManager {
                 gbrand.setImageURL(rs.getString("imageURL"));
             }
         } catch (Exception e) {
-
+            System.out.println(e);
         }
         return gbrand;
     }
@@ -92,7 +96,7 @@ public class BrandManager {
         Brand gbrand = null;
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Select * from Brand where name = ? ");
+            PreparedStatement ps = con.prepareStatement("Select * from ProductBrand where name = ? ");
             ps.setString(1, brandName);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -102,7 +106,7 @@ public class BrandManager {
                 gbrand.setImageURL(rs.getString("imageURL"));
             }
         } catch (Exception e) {
-
+            System.out.println(e);
         }
         return gbrand;
     }
@@ -110,25 +114,34 @@ public class BrandManager {
     public boolean updateBrand(Brand newBrand){
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Update Brand Set name = ? and Set ImageURL = ? where id = ?");
+            PreparedStatement ps = con.prepareStatement("Update ProductBrand set name = ? and set ImageURL = ? WHERE id = ?");
             ps.setString(1, newBrand.getName());
             ps.setString(2, newBrand.getImageURL());
-            ps.execute();
-        }catch (Exception e){
+            ps.setInt(3, newBrand.getId());
             
+            int res = ps.executeUpdate();
+            if (res >= 0){
+                return true;
+            }
+        }catch (Exception e){
+            System.out.println(e);
         }
-        return true;
+        return false;
     }
 // delete brand    
     public boolean deleteBrand(int brandId){
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Delete from Brand where id = ?");
+            PreparedStatement ps = con.prepareStatement("Delete from ProductBrand where id = ?");
             ps.setInt(1, brandId);
-            ps.execute();
-        }catch (Exception e){
             
+            int res = ps.executeUpdate();
+            if (res >= 0){
+                return true;
+            }
+        }catch (Exception e){
+            System.out.println(e);
         }
-        return true;
+        return false;
     }    
 }
