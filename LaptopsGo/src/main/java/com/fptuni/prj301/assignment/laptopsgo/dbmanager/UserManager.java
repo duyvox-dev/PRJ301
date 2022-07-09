@@ -27,7 +27,6 @@ public class UserManager {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getEmail());
-
             ps.setString(4, user.getFullname());
             ps.setString(5, user.getRole());
             int res = ps.executeUpdate();
@@ -118,7 +117,48 @@ public class UserManager {
         }
         return user;
     }
-
+    public User checkUserByEmail(String email) {
+        User user = null;
+        String sql = "SELECT * FROM [Users] WHERE email = ?";
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setUsername(rs.getString("username"));
+                user.setRole(rs.getString("role"));
+                user.setFullname(rs.getString("fullname"));
+                user.setEmail(rs.getString("email"));
+                user.setBanStatus(rs.getInt("banStatus"));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return user;
+    }
+        public User checkUserByUsername(String username) {
+        User user = null;
+        String sql = "SELECT * FROM [Users] WHERE username = ?";
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setUsername(rs.getString("username"));
+                user.setRole(rs.getString("role"));
+                user.setFullname(rs.getString("fullname"));
+                user.setEmail(rs.getString("email"));
+                user.setBanStatus(rs.getInt("banStatus"));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return user;
+    }
     public int getUserListSize() {
         int count = 0;
         try {

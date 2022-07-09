@@ -10,6 +10,8 @@ import com.fptuni.prj301.assignment.laptopsgo.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -56,15 +58,60 @@ public class UserControllers extends HttpServlet {
                     }
 
                 }
-                request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+                request.getRequestDispatcher(request.getContextPath() +"/auth/login.jsp").forward(request, response);
             } catch (Exception e) {
-                System.out.println( e);
+                System.out.println(e);
             }
         } else if (path.equals("/logout")) {
             try {
                 HttpSession httpSession = request.getSession();
                 httpSession.invalidate();
                 response.sendRedirect(request.getContextPath() + "/");
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        } else if (path.equals("/register")) {
+            try {
+                HashMap<String, String> errors = new HashMap<>();
+                boolean hasError = false;
+                String username = (request.getParameter("username")).trim();
+                String password = (request.getParameter("password"));
+                String confirmPassword = request.getParameter("confirm-password");
+                String email = (request.getParameter("email")).trim();
+                String fullName = (request.getParameter("fullname")).trim();
+                String role = request.getParameter("role");
+                if (username != null && password != null && confirmPassword != null && email != null && fullName != null) {
+                    UserManager userManager = new UserManager();
+                    if (!password.equals(confirmPassword)) {
+                        errors.put("confirm-password", "password and confirm password do not match");
+                        hasError = true;
+                    }
+                    if (userManager.checkUserByEmail(email) != null) {
+
+                        errors.put("email", "This email is existed, please try another.");
+                        hasError = true;
+                    }
+                    if (userManager.checkUserByUsername(username) != null) {
+
+                        errors.put("username", "This username is existed, please try another.");
+                        hasError = true;
+                    }
+                    if (!hasError) {
+                        User user = new User();
+                        user.setUsername(username);
+                        user.setPassword(password);
+                        user.setBanStatus(0);
+                        user.setEmail(email);
+                         user.setRole(role);
+                         user.setFullname(fullName);
+                        boolean addUserSuccess = userManager.addUser(user);
+                        if (addUserSuccess) {
+                            response.sendRedirect(request.getContextPath() +"/auth/login.jsp");
+                        }
+                    }
+                    request.setAttribute("errors", errors);
+                    request.getRequestDispatcher( "/auth/register.jsp").forward(request, response);
+                }
             } catch (Exception e) {
                 System.out.println(e);
             }
