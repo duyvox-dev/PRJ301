@@ -5,12 +5,16 @@
  */
 package com.fptuni.prj301.assignment.laptopsgo.controller;
 
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.UserManager;
+import com.fptuni.prj301.assignment.laptopsgo.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,18 +33,41 @@ public class UserControllers extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UserControllers</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UserControllers at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String path = request.getPathInfo();
+        if (path.equals("/login")) {
+            try {
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                if (username != null && password != null) {
+                    UserManager userManager = new UserManager();
+                    User user = userManager.getUser(username.trim(), password.trim());
+                    if (user == null) {
+                        request.setAttribute("loginErrorMsg", "Invalid username or password");
+                    } else {
+
+                        if (user.getBanStatus() == 0) {
+                            // not banned yet
+                            HttpSession httpSession = request.getSession(true);
+                            httpSession.setAttribute("userSession", user);
+                            response.sendRedirect(request.getContextPath() + "/");
+                        } else {
+                            request.setAttribute("loginErrorMsg", "Your account is banned");
+                        }
+                    }
+
+                }
+                request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+            } catch (Exception e) {
+                System.out.println( e);
+            }
+        } else if (path.equals("/logout")) {
+            try {
+                HttpSession httpSession = request.getSession();
+                httpSession.invalidate();
+                response.sendRedirect(request.getContextPath() + "/");
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
     }
 

@@ -36,7 +36,7 @@
                 </form>
                 <div class="navbar__action">
                     <!-- !role -->
-                    <a href="./User/login" class="btn btn__solid-primary"
+                    <a href="./auth/login.jsp" class="btn btn__solid-primary"
                        >Login/Register</a
                     > 
                 </div>
@@ -88,7 +88,7 @@
                         </span>
                     </a>
                     <a
-                        href="#"
+                      href="${pageContext.request.contextPath}/User/logout"
                         data-bs-toggle="tooltip"
                         data-bs-placement="bottom"
                         title="Logout"
@@ -132,7 +132,7 @@
 
 
                     <!-- role == seller -->
-                    <a href="#" class="btn navbar__btn-post">
+                    <a href="#" class="btn btn__solid-red">
                         <span>Post a product </span>
                         <i class="fa-solid fa-arrow-trend-up"></i>
                     </a>
@@ -142,13 +142,13 @@
                         <i class="fa-regular fa-user navbar__user-icon"></i>
                         <span class="navbar__user-name">
                             <!-- role == admin, seller -->
-                            <span class="navbar__user-role">${user.role}</span>
+                            <span class="navbar__user-role text-capitalize">${user.role}</span>
                             <!--  -->
                             <span class="">${user.fullname}</span>
                         </span>
                     </a>
                     <a
-                        href="#"
+                       href="${pageContext.request.contextPath}/User/logout"
                         data-bs-toggle="tooltip"
                         data-bs-placement="bottom"
                         title="Logout"
@@ -193,13 +193,13 @@
                         <i class="fa-regular fa-user navbar__user-icon"></i>
                         <span class="navbar__user-name">
                             <!-- role == admin, seller -->
-                            <span class="navbar__user-role">${user.role}</span>
+                            <span class="navbar__user-role  text-capitalize">${user.role}</span>
                             <!--  -->
                             <span class="">${user.fullname}</span>
                         </span>
                     </a>
                     <a
-                        href="#"
+                        href="${pageContext.request.contextPath}/User/logout"
                         data-bs-toggle="tooltip"
                         data-bs-placement="bottom"
                         title="Logout"

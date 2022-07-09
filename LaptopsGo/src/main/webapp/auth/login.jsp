@@ -44,7 +44,7 @@
             referrerpolicy="no-referrer"
             />
         <!--  -->
-        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="stylesheet" href="../css/login.css" />
     </head>
     <body>
         <div class="login__page">
@@ -53,7 +53,7 @@
                     <i class="fa-solid fa-laptop-code"></i>
                     <span>LaptopsGo</span>
                 </a>
-                <form action="./login" class="login__form">
+                <form action="../User/login" class="login__form" method="POST">
                     <div class="input__group">
                         <input
                             type="text"
@@ -70,13 +70,13 @@
                             placeholder="Password"
                             />
                     </div>
-                    <p>${requestScope.loginErrorMsg}</p>
+                    <p className="err__message">${requestScope.loginErrorMsg}</p>
 
                     <button class="login__btn" type="submit">Log in</button>
                 </form>
                 <p class="link-to">
                     <span>Dont have account?</span>
-                    <a href="" class="">Register</a>
+                    <a href="${pageContext.request.contextPath}/auth/register.jsp" class="">Register</a>
                 </p>
             </div>
         </div>

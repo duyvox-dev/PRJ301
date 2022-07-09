@@ -44,7 +44,7 @@
             referrerpolicy="no-referrer"
             />
         <!--  -->
-        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="stylesheet" href="../css/login.css" />
     </head>
     <body>
         <div class="login__page">
@@ -91,7 +91,7 @@
                 </form>
                 <p class="link-to">
                     <span>Already have account ? </span>
-                    <a href="" class="">Login</a>
+                    <a href="${pageContext.request.contextPath}/auth/login.jsp" class="">Login</a>
                 </p>
             </div>
         </div>
