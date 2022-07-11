@@ -13,19 +13,20 @@
     <header>
         <nav class="navbar fixed-top navbar-expand-lg shadow">
             <div class="container navbar__main">
-                <a class="navbar-brand navbar__logo" href="./">
+                <a class="navbar-brand navbar__logo" href="${pageContext.request.contextPath}">
                     <i class="fa-solid fa-laptop-code"></i>
                     <span>LaptopsGo</span>
                 </a>
                 <span class="navbar__toggler">
                     <i class="fa-solid fa-bars"></i>
                 </span>
-                <form class="navbar__search" role="search">
+                <form class="navbar__search" role="search" action="${pageContext.request.contextPath}/Product/search">
                     <input
                         class="navbar__search-text"
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
+                        name="searchKey"
                         />
                     <button
                         class="btn btn-solid navbar__search-btn"
@@ -36,7 +37,7 @@
                 </form>
                 <div class="navbar__action">
                     <!-- !role -->
-                    <a href="./User/login" class="btn btn__solid-primary"
+                    <a href="${pageContext.request.contextPath}/auth/login.jsp" class="btn btn__solid-primary"
                        >Login/Register</a
                     > 
                 </div>
@@ -48,19 +49,20 @@
     <header>
         <nav class="navbar fixed-top navbar-expand-lg shadow">
             <div class="container navbar__main">
-                <a class="navbar-brand navbar__logo" href="./">
+                <a class="navbar-brand navbar__logo" href="${pageContext.request.contextPath}">
                     <i class="fa-solid fa-laptop-code"></i>
                     <span>LaptopsGo</span>
                 </a>
                 <span class="navbar__toggler">
                     <i class="fa-solid fa-bars"></i>
                 </span>
-                <form class="navbar__search" role="search">
+                 <form class="navbar__search" role="search" action="${pageContext.request.contextPath}/Product/search">
                     <input
                         class="navbar__search-text"
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
+                        name="searchKey"
                         />
                     <button
                         class="btn btn-solid navbar__search-btn"
@@ -88,7 +90,7 @@
                         </span>
                     </a>
                     <a
-                        href="#"
+                      href="${pageContext.request.contextPath}/User/logout"
                         data-bs-toggle="tooltip"
                         data-bs-placement="bottom"
                         title="Logout"
@@ -106,19 +108,20 @@
     <header>
         <nav class="navbar fixed-top navbar-expand-lg shadow">
             <div class="container navbar__main">
-                <a class="navbar-brand navbar__logo" href="./">
+                <a class="navbar-brand navbar__logo" href="${pageContext.request.contextPath}">
                     <i class="fa-solid fa-laptop-code"></i>
                     <span>LaptopsGo</span>
                 </a>
                 <span class="navbar__toggler">
                     <i class="fa-solid fa-bars"></i>
                 </span>
-                <form class="navbar__search" role="search">
+                <form class="navbar__search" role="search" action="${pageContext.request.contextPath}/Product/search">
                     <input
                         class="navbar__search-text"
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
+                        name="searchKey"
                         />
                     <button
                         class="btn btn-solid navbar__search-btn"
@@ -132,7 +135,7 @@
 
 
                     <!-- role == seller -->
-                    <a href="#" class="btn navbar__btn-post">
+                    <a href="#" class="btn btn__solid-red">
                         <span>Post a product </span>
                         <i class="fa-solid fa-arrow-trend-up"></i>
                     </a>
@@ -142,13 +145,13 @@
                         <i class="fa-regular fa-user navbar__user-icon"></i>
                         <span class="navbar__user-name">
                             <!-- role == admin, seller -->
-                            <span class="navbar__user-role">${user.role}</span>
+                            <span class="navbar__user-role text-capitalize">${user.role}</span>
                             <!--  -->
                             <span class="">${user.fullname}</span>
                         </span>
                     </a>
                     <a
-                        href="#"
+                       href="${pageContext.request.contextPath}/User/logout"
                         data-bs-toggle="tooltip"
                         data-bs-placement="bottom"
                         title="Logout"
@@ -193,13 +196,13 @@
                         <i class="fa-regular fa-user navbar__user-icon"></i>
                         <span class="navbar__user-name">
                             <!-- role == admin, seller -->
-                            <span class="navbar__user-role">${user.role}</span>
+                            <span class="navbar__user-role  text-capitalize">${user.role}</span>
                             <!--  -->
                             <span class="">${user.fullname}</span>
                         </span>
                     </a>
                     <a
-                        href="#"
+                        href="${pageContext.request.contextPath}/User/logout"
                         data-bs-toggle="tooltip"
                         data-bs-placement="bottom"
                         title="Logout"

@@ -3,8 +3,8 @@
     Created on : Jun 30, 2022, 4:10:18 PM
     Author     : vobao
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="errors" value="${requestScope.errors}"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -44,23 +44,47 @@
             referrerpolicy="no-referrer"
             />
         <!--  -->
-        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="stylesheet" href="../css/login.css" />
     </head>
     <body>
+
         <div class="login__page">
+            <div style="position: absolute; top: 0; right: 0;">
+
+                <c:if test="${not empty errors['username']}">
+                    <div class="alert alert-danger" role="alert">
+                        ${errors['username']}
+                    </div>
+
+                </c:if>
+
+                <c:if test="${not empty errors['email']}">
+                    <div class="alert alert-danger" role="alert">
+                        ${errors['email']}
+                    </div>
+
+                </c:if>
+                <c:if test="${not empty errors['confirm-password']}">
+                    <div class="alert alert-danger" role="alert">
+                        ${errors['confirm-password']}
+                    </div>
+                </c:if>
+            </div>
+
             <div class="login__main shadow-sm">
                 <a class="logo" href="#">
                     <i class="fa-solid fa-laptop-code"></i>
                     <span>LaptopsGo</span>
                 </a>
-                <form action="" class="login__form">
+                <form action="../User/register" class="login__form" method = "POST">
                     <div class="input__group">
                         <label for="username">Username </label>
                         <input type="text" name="username" required />
+
                     </div>
                     <div class="input__group">
                         <label for="password">Password </label>
-                        <input type="password" name="password" required />
+                        <input type="password" name="password" required minLength="8" />
                     </div>
                     <div class="input__group">
                         <label for="confirm-password">Confirm password </label>
@@ -68,7 +92,9 @@
                             type="password"
                             name="confirm-password"
                             required
-                        />
+                            minLength="8"
+                            />
+
                     </div>
                     <div class="input__group">
                         <label for="fullname">Full name </label>
@@ -79,19 +105,18 @@
                         <input type="email" name="email" required />
                     </div>
                     <div class="input__group checkbox">
-                        <input
-                            type="checkbox"
-                            name="role"
-                            id="role__checkbox"
-                            required
-                        />
-                        <label for="role__checkbox">Register as Seller </label>
+                        <label for="role">Role </label>
+                        <select name="role" id="">
+                            <option value="buyer" default>buyer</option>
+                            <option value="seller">seller</option>
+                        </select>
+
                     </div>
                     <button class="login__btn">Register</button>
                 </form>
                 <p class="link-to">
                     <span>Already have account ? </span>
-                    <a href="" class="">Login</a>
+                    <a href="${pageContext.request.contextPath}/auth/login.jsp" class="">Login</a>
                 </p>
             </div>
         </div>
