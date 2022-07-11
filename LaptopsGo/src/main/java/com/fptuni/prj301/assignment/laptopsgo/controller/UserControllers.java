@@ -8,7 +8,6 @@ package com.fptuni.prj301.assignment.laptopsgo.controller;
 import com.fptuni.prj301.assignment.laptopsgo.dbmanager.UserManager;
 import com.fptuni.prj301.assignment.laptopsgo.model.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.regex.Pattern;
@@ -58,7 +57,7 @@ public class UserControllers extends HttpServlet {
                     }
 
                 }
-                request.getRequestDispatcher(request.getContextPath() +"/auth/login.jsp").forward(request, response);
+                request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -110,7 +109,7 @@ public class UserControllers extends HttpServlet {
                         }
                     }
                     request.setAttribute("errors", errors);
-                    request.getRequestDispatcher( "/auth/register.jsp").forward(request, response);
+                    request.getRequestDispatcher("/auth/register.jsp").forward(request, response);
                 }
             } catch (Exception e) {
                 System.out.println(e);

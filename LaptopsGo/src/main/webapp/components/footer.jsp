@@ -9,7 +9,7 @@
             <div class="container">
                 <div class="row footer__top">
                     <div class="col-md-12 col-lg-3">
-                        <a class="footer__logo" href="#">
+                        <a class="footer__logo" href="${pageContext.request.contextPath}">
                             <i class="fa-solid fa-laptop-code"></i>
                             <span>LaptopsGo</span>
                         </a>
@@ -20,19 +20,19 @@
                         </h3>
                         <div class="social__list">
                             <a href="#" class="social__item">
-                                <img src="./images/facebook.png" alt="" />
+                                <img src="${pageContext.request.contextPath}/images/facebook.png" alt="" />
                                 <span>Facebook</span>
                             </a>
                             <a href="#" class="social__item">
-                                <img src="./images/youtube.png" alt="" />
+                                <img src="${pageContext.request.contextPath}/images/youtube.png" alt="" />
                                 <span>Youtube</span>
                             </a>
                             <a href="#" class="social__item">
-                                <img src="./images/tiktok.png" alt="" />
+                                <img src="${pageContext.request.contextPath}/images/tiktok.png" alt="" />
                                 <span>Tiktok</span>
                             </a>
                             <a href="#" class="social__item">
-                                <img src="./images/insta.png" alt="" />
+                                <img src="${pageContext.request.contextPath}/images/insta.png" alt="" />
                                 <span>Instagram</span>
                             </a>
                         </div>

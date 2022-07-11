@@ -47,7 +47,7 @@ $(".category__list").slick({
     dots: true,
     infinite: false,
     speed: 300,
-    slidesToShow: 8,
+    slidesToShow: 6,
     slidesToScroll: 4,
     responsive: [
         {
@@ -82,7 +82,7 @@ $(".suggest__list").slick({
     dots: true,
     infinite: false,
     speed: 300,
-    slidesToShow: 5,
+    slidesToShow: 4,
     slidesToScroll: 4,
     responsive: [
         {

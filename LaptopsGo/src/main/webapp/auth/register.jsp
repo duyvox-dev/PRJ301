@@ -52,20 +52,20 @@
             <div style="position: absolute; top: 0; right: 0;">
 
                 <c:if test="${not empty errors['username']}">
-                    <div>
+                    <div class="alert alert-danger" role="alert">
                         ${errors['username']}
                     </div>
 
                 </c:if>
 
                 <c:if test="${not empty errors['email']}">
-                    <div>
+                    <div class="alert alert-danger" role="alert">
                         ${errors['email']}
                     </div>
 
                 </c:if>
                 <c:if test="${not empty errors['confirm-password']}">
-                    <div>
+                    <div class="alert alert-danger" role="alert">
                         ${errors['confirm-password']}
                     </div>
                 </c:if>

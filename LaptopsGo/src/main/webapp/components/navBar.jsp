@@ -13,19 +13,20 @@
     <header>
         <nav class="navbar fixed-top navbar-expand-lg shadow">
             <div class="container navbar__main">
-                <a class="navbar-brand navbar__logo" href="./">
+                <a class="navbar-brand navbar__logo" href="${pageContext.request.contextPath}">
                     <i class="fa-solid fa-laptop-code"></i>
                     <span>LaptopsGo</span>
                 </a>
                 <span class="navbar__toggler">
                     <i class="fa-solid fa-bars"></i>
                 </span>
-                <form class="navbar__search" role="search">
+                <form class="navbar__search" role="search" action="${pageContext.request.contextPath}/Product/search">
                     <input
                         class="navbar__search-text"
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
+                        name="searchKey"
                         />
                     <button
                         class="btn btn-solid navbar__search-btn"
@@ -36,7 +37,7 @@
                 </form>
                 <div class="navbar__action">
                     <!-- !role -->
-                    <a href="./auth/login.jsp" class="btn btn__solid-primary"
+                    <a href="${pageContext.request.contextPath}/auth/login.jsp" class="btn btn__solid-primary"
                        >Login/Register</a
                     > 
                 </div>
@@ -48,19 +49,20 @@
     <header>
         <nav class="navbar fixed-top navbar-expand-lg shadow">
             <div class="container navbar__main">
-                <a class="navbar-brand navbar__logo" href="./">
+                <a class="navbar-brand navbar__logo" href="${pageContext.request.contextPath}">
                     <i class="fa-solid fa-laptop-code"></i>
                     <span>LaptopsGo</span>
                 </a>
                 <span class="navbar__toggler">
                     <i class="fa-solid fa-bars"></i>
                 </span>
-                <form class="navbar__search" role="search">
+                 <form class="navbar__search" role="search" action="${pageContext.request.contextPath}/Product/search">
                     <input
                         class="navbar__search-text"
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
+                        name="searchKey"
                         />
                     <button
                         class="btn btn-solid navbar__search-btn"
@@ -106,19 +108,20 @@
     <header>
         <nav class="navbar fixed-top navbar-expand-lg shadow">
             <div class="container navbar__main">
-                <a class="navbar-brand navbar__logo" href="./">
+                <a class="navbar-brand navbar__logo" href="${pageContext.request.contextPath}">
                     <i class="fa-solid fa-laptop-code"></i>
                     <span>LaptopsGo</span>
                 </a>
                 <span class="navbar__toggler">
                     <i class="fa-solid fa-bars"></i>
                 </span>
-                <form class="navbar__search" role="search">
+                <form class="navbar__search" role="search" action="${pageContext.request.contextPath}/Product/search">
                     <input
                         class="navbar__search-text"
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
+                        name="searchKey"
                         />
                     <button
                         class="btn btn-solid navbar__search-btn"

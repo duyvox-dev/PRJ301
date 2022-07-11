@@ -118,7 +118,7 @@ public class ProductManager {
                 Product product = new Product();
                 product.setId(rs.getInt("id"));
                 product.setBrandID(rs.getInt("brandID"));
-                product.setBrandID(rs.getInt("categoryID"));
+                product.setCategoryID(rs.getInt("categoryID"));
                 product.setSellerID(rs.getInt("sellerID"));
                 product.setPrice(rs.getDouble("price"));
                 product.setName(rs.getString("name"));
@@ -155,6 +155,79 @@ public class ProductManager {
         return count;
     }
 
+    public ArrayList<Product> getProductByBrandAndCategory(int brandID, int categoryID) {
+        ArrayList<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM [Product] WHERE (brandID = ? OR categoryID = ?) AND deleteStatus = 0";
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, brandID);
+            ps.setInt(2, categoryID);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setBrandID(rs.getInt("brandID"));
+                product.setCategoryID(rs.getInt("categoryID"));
+                product.setSellerID(rs.getInt("sellerID"));
+                product.setPrice(rs.getDouble("price"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setImageURL(rs.getString("imageURL"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setSoldQuantity(rs.getInt("soldQuantity"));
+                product.setCreatedDate(rs.getDate("createdDate"));
+                product.setLastModefiedDate(rs.getDate("lastModefiedDate"));
+                product.setIsNew(rs.getInt("isNew"));
+                product.setDeleteStatus(rs.getInt("deleteStatus"));
+                products.add(product);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return products;
+    }
+
+    public ArrayList<Product> getProductBySearchString(String searchKey, int page, int limit) {
+        int low = (page - 1) * limit;
+        int high =  limit;
+
+        ArrayList<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM [Product] WHERE name like ? ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            String processedKey = "%" + searchKey + "%";
+            ps.setString(1, processedKey);
+
+            ps.setInt(2, low);
+            ps.setInt(3, high);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setBrandID(rs.getInt("brandID"));
+                product.setCategoryID(rs.getInt("categoryID"));
+                product.setSellerID(rs.getInt("sellerID"));
+                product.setPrice(rs.getDouble("price"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setImageURL(rs.getString("imageURL"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setSoldQuantity(rs.getInt("soldQuantity"));
+                product.setCreatedDate(rs.getDate("createdDate"));
+                product.setLastModefiedDate(rs.getDate("lastModefiedDate"));
+                product.setIsNew(rs.getInt("isNew"));
+                product.setDeleteStatus(rs.getInt("deleteStatus"));
+                products.add(product);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return products;
+    }
+
     public ArrayList<Product> getProductList(String sql) {
         ArrayList<Product> products = new ArrayList<>();
         try {
@@ -165,7 +238,7 @@ public class ProductManager {
                 Product product = new Product();
                 product.setId(rs.getInt("id"));
                 product.setBrandID(rs.getInt("brandID"));
-                product.setBrandID(rs.getInt("categoryID"));
+                product.setCategoryID(rs.getInt("categoryID"));
                 product.setSellerID(rs.getInt("sellerID"));
                 product.setPrice(rs.getDouble("price"));
                 product.setName(rs.getString("name"));
@@ -204,7 +277,7 @@ public class ProductManager {
 
     public ArrayList<Product> getProductList(int page, int limit) {
         int low = (page - 1) * limit;
-        int high = (page) * limit;
+        int high = limit;
 
         ArrayList<Product> products = new ArrayList<>();
         String sql = "SELECT * FROM [Product] ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
@@ -218,7 +291,7 @@ public class ProductManager {
                 Product product = new Product();
                 product.setId(rs.getInt("id"));
                 product.setBrandID(rs.getInt("brandID"));
-                product.setBrandID(rs.getInt("categoryID"));
+                product.setCategoryID(rs.getInt("categoryID"));
                 product.setSellerID(rs.getInt("sellerID"));
                 product.setPrice(rs.getDouble("price"));
                 product.setName(rs.getString("name"));
@@ -236,5 +309,36 @@ public class ProductManager {
             System.out.println(e);
         }
         return products;
+    }
+
+    public Product getProduct(int id) {
+        String sql = "SELECT * FROM [Product] WHERE id = ?";
+        Product product = null;
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setBrandID(rs.getInt("brandID"));
+                product.setCategoryID(rs.getInt("categoryID"));
+                product.setSellerID(rs.getInt("sellerID"));
+                product.setPrice(rs.getDouble("price"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setImageURL(rs.getString("imageURL"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setSoldQuantity(rs.getInt("soldQuantity"));
+                product.setCreatedDate(rs.getDate("createdDate"));
+                product.setLastModefiedDate(rs.getDate("lastModefiedDate"));
+                product.setIsNew(rs.getInt("isNew"));
+                product.setDeleteStatus(rs.getInt("deleteStatus"));
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return product;
     }
 }
