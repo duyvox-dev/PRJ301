@@ -59,7 +59,7 @@
                 >
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/Product/listing">Home</a></li>
+                        <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
                             Search
                         </li>
@@ -76,9 +76,11 @@
                                 <h4 class="filter__title">Brand</h4>
                                 <div class="filter__list">
                                     <c:set var="brandList" value="${requestScope.brandList}"/>
+                                    <c:set var="currentBrand" value="${requestScope.currentBrand}"/>
 
+                                    <!--                                    <form action="" method="GET">
                                     <c:forEach var="o" items="${brandList}"> 
-                                        <a href="./search?brand=${o.getName()}" class="filter__item">
+                                        <button type="submit" name="brand" value="${o.getName()}" class="filter__item">
                                             <div class="filter__item-inner">
                                                 <img
                                                     src="${o.getImageURL()}"
@@ -86,23 +88,68 @@
                                                     class="filter__img"
                                                     />
                                             </div>
-                                        </a>
+                                        </button>
+                                        <input type="text" value ="filterBrand" hidden/>
                                     </c:forEach>
+                                </form>-->
 
+                                    <c:forEach var="o" items="${brandList}"> 
+                                        <c:choose>
+                                            <c:when test="${o.getName() == currentBrand}">
+                                                <a href="./search?brand=${o.getName()}" class="filter__item active">
+                                                    <div class="filter__item-inner">
+                                                        <img
+                                                            src="${o.getImageURL()}"
+                                                            alt=""
+                                                            class="filter__img"
+                                                            />
+                                                    </div>
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise >
+                                                <a href="./search?brand=${o.getName()}" class="filter__item">
+                                                    <div class="filter__item-inner">
+                                                        <img
+                                                            src="${o.getImageURL()}"
+                                                            alt=""
+                                                            class="filter__img"
+                                                            />
+                                                    </div>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                    </c:forEach>
                                 </div>
                             </div>
                             <div class="filter__category">
-                                <h4 class="filter__title">Demand</h4>
+                                <h4 class="filter__title">Category</h4>
                                 <div class="filter__list">
                                     <c:set var="categoryList" value="${requestScope.categoryList}"/>
+                                    <c:set var="currentCategory" value="${requestScope.currentCategory}"/>
+
                                     <c:forEach var="o" items="${categoryList}"> 
-                                        <a href="./search?category=${o.getName()}" class="filter__item">
-                                            <div class="filter__item-inner">
-                                                <span class="filter__category-name"
-                                                      >${o.getName()}</span
-                                                >
-                                            </div>
-                                        </a>
+                                        <c:choose>
+                                            <c:when test="${o.getName() == currentCategory}">
+                                                <a href="./search?category=${o.getName()}" class="filter__item active">
+                                                    <div class="filter__item-inner">
+                                                        <span class="filter__category-name"
+                                                              >${o.getName()}</span
+                                                        >
+                                                    </div>
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise >
+                                                <a href="./search?category=${o.getName()}" class="filter__item">
+                                                    <div class="filter__item-inner">
+                                                        <span class="filter__category-name"
+                                                              >${o.getName()}</span
+                                                        >
+                                                    </div>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+
                                     </c:forEach>
 
                                 </div>
@@ -119,13 +166,18 @@
                         <div class="product col-md-9">
                             <div class="container">
                                 <c:set var="searchKey" value="${requestScope.searchKey}"/>
-                                <h2 class="product__heading">
-                                    Result for: <c:if test="${empty searchKey}">${searchKey}</c:if>
-                                </h2>
+
+                                        <h2 class="product__heading">
+                                            Result for:${searchKey}
+                                        </h2>
+                                 
+
+    
+
                                 <div class="product__list product__list-search row">
                                     <c:set var="productList" value="${requestScope.productList}"/>
                                     <c:forEach var="o" items="${productList}"> 
-                                        <a href="${pageContext.request.contextPath}/Product/detail?id=${o.getId()}" class="col-md-3 product__item">
+                                        <a href="${pageContext.request.contextPath}/Product/detail?id=${o.getId()}" class="col-md-4 product__item">
                                             <div class="card">
                                                 <img
                                                     src="${o.getImageURL()}"

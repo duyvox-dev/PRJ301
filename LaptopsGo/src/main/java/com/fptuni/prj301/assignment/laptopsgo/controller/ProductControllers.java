@@ -78,7 +78,7 @@ public class ProductControllers extends HttpServlet {
 
                 String currentPageStr = request.getParameter("page");
                 int currentPage = 1;
-                int PRODUCT_PER_PAGE = 8;
+                int PRODUCT_PER_PAGE = 6;
                 if (currentPageStr != null) {
                     currentPage = Integer.parseInt(currentPageStr);
                 }
@@ -93,6 +93,7 @@ public class ProductControllers extends HttpServlet {
                 if (searchKey != null && searchKey != "") {
                     productList.clear();
                     productList = productManager.getProductBySearchString(searchKey, currentPage, PRODUCT_PER_PAGE);
+
                 }
                 if (category != null && category != "") {
                     productList.clear();
@@ -102,13 +103,15 @@ public class ProductControllers extends HttpServlet {
                     productList.clear();
                     productList = productManager.getProductByBrandAndCategory(brandManager.getBrand(brand).getId(), 0);
                 }
+                request.setAttribute("currentCategory", category);
+                                request.setAttribute("currentBrand", brand);
 
                 request.setAttribute("searchKey", searchKey);
 
                 request.setAttribute("productListSize", productListSize);
                 request.setAttribute("productList", productList);
                 request.setAttribute("numberOfPages", numberOfPages);
-
+                
                 request.setAttribute("currentPage", currentPage);
                 request.setAttribute("brandList", brandList);
                 request.setAttribute("categoryList", categoryList);

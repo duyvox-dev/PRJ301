@@ -134,7 +134,7 @@
                 <h2 class="brand__heading">Hot Brand</h2>
                 <div class="brand__list">
                     <c:forEach var="o" items="${brandList}"> 
-                        <a href="./search?brand=${o.getName()}" class="brand__item">
+                        <a href="${pageContext.request.contextPath}/Product/search?brand=${o.getName()}" class="brand__item">
                             <div class="brand__item-inner">
                                 <img
                                     src="${o.getImageURL()}"
@@ -158,7 +158,7 @@
                 <div class="category__list">
                     <c:set var="categoryList" value="${requestScope.categoryList}"/>
                     <c:forEach var="o" items="${categoryList}"> 
-                        <a href="./search?category=${o.getName()}" class="category__item">
+                        <a href="${pageContext.request.contextPath}/Product/search?category=${o.getName()}" class="category__item">
                             <span class="category__name">${o.getName()}</span>
                         </a>
                     </c:forEach>
@@ -194,7 +194,7 @@
 
 
                 </div>
-                <nav aria-label="Page navigation example">
+<!--                <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                         <c:set var="currentPage" value="${requestScope.currentPage}"/>
                         <c:set var="numberOfPages" value="${requestScope.numberOfPages}"/>
@@ -221,7 +221,10 @@
                         </c:if>
 
                     </ul>
-                </nav>
+</nav>--><div class="d-flex justify-content-center align-items-center">
+                            <a href="${pageContext.request.contextPath}/Product/search" class="btn btn__solid-red">See all product</a>
+
+                        </div>
             </div>
         </div>
         <!--  -->

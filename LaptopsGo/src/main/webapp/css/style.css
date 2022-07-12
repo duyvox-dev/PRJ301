@@ -422,6 +422,9 @@ a {
     border-radius: 10px;
     text-align: center;
 }
+.filter__item.active {
+  border: 2px solid rgb(254, 52, 100);
+}
 .filter__item-inner {
     display: flex;
     justify-content: center;

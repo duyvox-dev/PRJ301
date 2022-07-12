@@ -8,7 +8,7 @@
 <%@page import="com.fptuni.prj301.assignment.laptopsgo.model.User" %>
 <c:set var="user" value="${sessionScope.userSession}"/>
 <c:set var="role" value="${user.role}"/>
-
+ <c:set var="searchKey" value="${requestScope.searchKey}"/>
 <c:if test="${empty role}">
     <header>
         <nav class="navbar fixed-top navbar-expand-lg shadow">
@@ -27,6 +27,7 @@
                         placeholder="Search"
                         aria-label="Search"
                         name="searchKey"
+                        value ="${searchKey}"
                         />
                     <button
                         class="btn btn-solid navbar__search-btn"
@@ -63,6 +64,7 @@
                         placeholder="Search"
                         aria-label="Search"
                         name="searchKey"
+                         value ="${searchKey}"
                         />
                     <button
                         class="btn btn-solid navbar__search-btn"
@@ -74,9 +76,8 @@
                 <div class="navbar__action">
 
                     <!-- buyer -->
-                    <a href="./Cart" class="navbar__cart">
+                    <a href="${pageContext.request.contextPath}/Cart" class="navbar__cart">
                         <i class="fa-solid fa-cart-shopping"></i>
-                        <span class="navbar__cart-num">10</span>
                     </a> 
                     <!--  -->
 
@@ -122,6 +123,7 @@
                         placeholder="Search"
                         aria-label="Search"
                         name="searchKey"
+                         value ="${searchKey}"
                         />
                     <button
                         class="btn btn-solid navbar__search-btn"
@@ -182,6 +184,7 @@
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
+                         value ="${searchKey}"
                         />
                     <button
                         class="btn btn-solid navbar__search-btn"
