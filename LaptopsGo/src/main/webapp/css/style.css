@@ -532,20 +532,18 @@ a {
 }
 
 .input__group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 .input__group label {
-    width: 15%;
+  display: block;
 }
 .input__group input {
-    flex: 1;
-    outline: none;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 4px;
-    padding: 10px 20px;
-    color: #094067;
+  width: 100%;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  padding: 10px 20px;
+  color: #094067;
 }
 
 /*# sourceMappingURL=style.css.map */
