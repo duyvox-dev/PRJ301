@@ -33,7 +33,7 @@ public class ProductManager {
 //   private int deleteStatus;
 
     public boolean addProduct(Product product) {
-        String sql = "INSERT INTO [Product] (categoryID, brandID, sellerID, name, price, description, imageURL, quantity, createdDate, lastModefiedDate, isNew) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO [Product] (categoryID, brandID, sellerID, name, price, description, imageURL, quantity, soldQuantity, createdDate, lastModefiedDate, isNew) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -43,9 +43,9 @@ public class ProductManager {
             ps.setString(4, product.getName());
             ps.setDouble(5, product.getPrice());
             ps.setString(6, product.getDescription());
-            ps.setString(7, product.getDescription());
-            ps.setString(8, product.getImageURL());
-            ps.setInt(9, product.getQuantity());
+            ps.setString(7, product.getImageURL());
+            ps.setInt(8, product.getQuantity());
+            ps.setInt(9, product.getSoldQuantity());
             ps.setDate(10, product.getCreatedDate());
             ps.setDate(11, product.getLastModefiedDate());
             ps.setInt(12, product.getIsNew());
@@ -79,7 +79,7 @@ public class ProductManager {
     }
 
     public boolean updateProduct(Product newProduct) {
-        String sql = "UPDATE [Products] SET  categoryID = ? , brandID = ?, name = ?, price = ?, description = ? , imageURL = ? , quantity = ?, createdDate = ?, lastModefiedDate = ?, isNew = ? WHERE id = ?";
+        String sql = "UPDATE [Product] SET  categoryID = ? , brandID = ?, name = ?, price = ?, description = ? , imageURL = ? , quantity = ?, soldQuantity= ?, createdDate = ?, lastModefiedDate = ?, isNew = ? WHERE id = ?";
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -90,10 +90,11 @@ public class ProductManager {
             ps.setString(5, newProduct.getDescription());
             ps.setString(6, newProduct.getImageURL());
             ps.setInt(7, newProduct.getQuantity());
-            ps.setDate(8, newProduct.getCreatedDate());
-            ps.setDate(9, newProduct.getLastModefiedDate());
-            ps.setInt(10, newProduct.getIsNew());
-            ps.setInt(11, newProduct.getId());
+            ps.setInt(8, newProduct.getSoldQuantity());
+            ps.setDate(9, newProduct.getCreatedDate());
+            ps.setDate(10, newProduct.getLastModefiedDate());
+            ps.setInt(11, newProduct.getIsNew());
+            ps.setInt(12, newProduct.getId());
 
             int res = ps.executeUpdate();
             if (res >= 0) {
@@ -191,7 +192,7 @@ public class ProductManager {
 
     public ArrayList<Product> getProductBySearchString(String searchKey, int page, int limit) {
         int low = (page - 1) * limit;
-        int high =  limit;
+        int high = limit;
 
         ArrayList<Product> products = new ArrayList<>();
         String sql = "SELECT * FROM [Product] WHERE name like ? ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";

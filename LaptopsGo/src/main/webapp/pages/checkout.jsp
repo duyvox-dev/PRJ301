@@ -72,102 +72,64 @@
                     <h2 class="checkout__heading">Checkout</h2>
                     <div class="row">
                         <div class="col-md-7">
+                            <c:set var="productList" value="${requestScope.productList}"/>
+
                             <div class="cart__list">
-                                <div class="cart__item row shadow-sm">
-                                    <div class="col-md-2 cart__image">
-                                        <img
-                                            src="https://media-api-beta.thinkpro.vn/backend/uploads/product/color_images/2021/6/2/alienwarex15r1-1.jpg?w=700&h=700"
-                                            alt=""
-                                            />
-                                    </div>
-                                    <div class="col-md-6 car__info">
-                                        <h3 class="cart__name">Alienware x15 R1</h3>
-                                        <p class="cart__description">
-                                            Lorem ipsum dolor sit amet consectetur
-                                            adipisicing elit. Possimus illo odit non
-                                            nostrum impedit.
-                                        </p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="row">
-                                            <div class="col-md-4 cart__num">
-                                                <span class="cart__quantity">
-                                                    1
-                                                </span>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p class="cart__price">
-                                                    <span>44.990.000 đ </span>
-                                                </p>
-                                                <span
-                                                    class="cart__btn cart__delete"
-                                                    >
-                                                    <span>Delete</span>
-                                                    <span
-                                                        ><i
-                                                            class="fa-regular fa-circle-xmark"
-                                                            ></i
-                                                        ></span>
-                                                </span>
+                                <c:forEach var="o" items="${productList}"> 
+                                    <div class="cart__item row shadow-sm">
+                                        <div class="col-md-2 cart__image">
+                                            <img
+                                                src="${o.getImageURL()}"
+                                                alt=""
+                                                />
+                                        </div>
+                                        <div class="col-md-6 car__info">
+                                            <h3 class="cart__name">${o.getName()}</h3>
+                                            <p class="cart__description">
+                                                ${o.getDescription()}
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-6 cart__num">
+                                                    <span class="cart__quantity">
+                                                        1
+                                                    </span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="cart__price">
+                                                        <span>$${o.getPrice()} </span>
+                                                    </p>
+                                                    <a href="${pageContext.request.contextPath}/Cart/delete?productID=${o.getId()}"
+                                                       class="cart__btn cart__delete"
+                                                       >
+                                                        <span>Delete</span>
+                                                        <span
+                                                            ><i
+                                                                class="fa-regular fa-circle-xmark"
+                                                                ></i
+                                                            ></span>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="cart__item row shadow-sm">
-                                    <div class="col-md-2 cart__image">
-                                        <img
-                                            src="https://media-api-beta.thinkpro.vn/backend/uploads/product/color_images/2021/6/2/alienwarex15r1-1.jpg?w=700&h=700"
-                                            alt=""
-                                            />
-                                    </div>
-                                    <div class="col-md-6 car__info">
-                                        <h3 class="cart__name">Alienware x15 R1</h3>
-                                        <p class="cart__description">
-                                            Lorem ipsum dolor sit amet consectetur
-                                            adipisicing elit. Possimus illo odit non
-                                            nostrum impedit.
-                                        </p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="row">
-                                            <div class="col-md-4 cart__num">
-                                                <span class="cart__quantity">
-                                                    1
-                                                </span>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p class="cart__price">
-                                                    <span>44.990.000 đ </span>
-                                                </p>
-                                                <span
-                                                    class="cart__btn cart__delete"
-                                                    >
-                                                    <span>Delete</span>
-                                                    <span
-                                                        ><i
-                                                            class="fa-regular fa-circle-xmark"
-                                                            ></i
-                                                        ></span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </c:forEach>
+
+
                             </div>
                             <h3 class="cart__total-heading">
                                 <span>Total</span>
                             </h3>
+                            <c:set var="totalCost" value="${requestScope.totalCost}"/>
 
-                            <p class="cart__total-cost">100.000.000 d</p>
+                            <p class="cart__total-cost">$ ${totalCost}</p>
                         </div>
                         <div class="col-md-5 checkout__info">
                             <h3 class="checkout__heading">Shipping info</h3>
-                            <form action="${pageContext.request.contextPath}/Order/" method="POST">
+                            <form action="${pageContext.request.contextPath}/Order/purchase" method="POST">
                                 <div class="checkout__form">
-                                    <div class="input__group">
-                                        <label for="name">Name: </label>
-                                        <input type="text" name="name" required />
-                                    </div>
+
                                     <div class="input__group">
                                         <label for="address">Address: </label>
                                         <input type="text" name="address" required />
@@ -186,19 +148,18 @@
                                             required
                                             />
                                     </div>
-                                    <input type="text" name="action" value="checkout" hidden/>
                                 </div>
-                                 <button type="submit"
+                                <button type="submit"
                                         class="d-block w-100 btn btn__solid-red cart__total-checkout"
                                         >
-                                        <span>Order </span>
-                                        <i class="fa-solid fa-angle-right"></i>
-                                    </button>
+                                    <span>Order </span>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </button>
                             </form>
 
                             <div class="checkout__sumary">
                                 <div class="">
-                                   
+
                                 </div>
                             </div>
                         </div>

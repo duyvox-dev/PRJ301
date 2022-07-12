@@ -121,7 +121,7 @@
                                     >
                                 </c:if>
                                 <c:if test= "${role == 'buyer'}">
-                                    <a href="${pageContext.request.contextPath}/Order/" class="btn btn__solid-red"
+                                    <a href="${pageContext.request.contextPath}/Cart/add?productID=${product.getId()}" class="btn btn__solid-red"
                                        >BUY NOW</a
                                     >
                                 </c:if>

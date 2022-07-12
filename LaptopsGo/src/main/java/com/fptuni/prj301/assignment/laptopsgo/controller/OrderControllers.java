@@ -5,9 +5,17 @@
  */
 package com.fptuni.prj301.assignment.laptopsgo.controller;
 
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.CartManager;
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.OrderDetailManager;
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.OrderManager;
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.ProductManager;
+import com.fptuni.prj301.assignment.laptopsgo.model.Cart;
+import com.fptuni.prj301.assignment.laptopsgo.model.Order;
+import com.fptuni.prj301.assignment.laptopsgo.model.Product;
 import com.fptuni.prj301.assignment.laptopsgo.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,19 +40,77 @@ public class OrderControllers extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String path = request.getPathInfo();
+        ProductManager productManager = new ProductManager();
+        CartManager cartManager = new CartManager();
+        OrderManager orderManager = new OrderManager();
+        OrderDetailManager orderDetailManager = new OrderDetailManager();
         if (path.equals("/")) {
             try {
                 HttpSession httpSession = request.getSession();
                 User userSession = (User) httpSession.getAttribute("userSession");
 
                 if (userSession == null || !userSession.getRole().equals("buyer")) {
-                    response.sendRedirect("/auth/login.jsp");
+                    response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
                 }
-                
+                ArrayList<Cart> carts = cartManager.getCartList(userSession.getId());
+                ArrayList<Product> products = new ArrayList<>();
+                double totalCost = 0;
+                for (int i = 0; i < carts.size(); i++) {
+                    Cart cart = carts.get(i);
+                    Product product = productManager.getProduct(cart.getProductID());
+                    products.add(product);
+                    totalCost += product.getPrice();
+                }
+
+                request.setAttribute("productList", products);
+                request.setAttribute("totalCost", totalCost);
                 request.getRequestDispatcher("/pages/checkout.jsp").forward(request, response);
             } catch (Exception ex) {
                 System.out.println(ex);
             }
+        }
+        if (path.equals("/purchase")) {
+            String address = request.getParameter("address");
+            String email = request.getParameter("email");
+            String phone = request.getParameter("phone");
+            long millis = System.currentTimeMillis();
+            java.sql.Date date = new java.sql.Date(millis);
+
+            HttpSession httpSession = request.getSession();
+            User userSession = (User) httpSession.getAttribute("userSession");
+
+            if (userSession == null || !userSession.getRole().equals("buyer")) {
+                response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
+            }
+
+            ArrayList<Cart> carts = cartManager.getCartList(userSession.getId());
+            ArrayList<Product> products = new ArrayList<>();
+            double totalCost = 0;
+            for (int i = 0; i < carts.size(); i++) {
+                Cart cart = carts.get(i);
+                Product product = productManager.getProduct(cart.getProductID());
+                products.add(product);
+                totalCost += product.getPrice();
+
+            }
+            if (address != null && email != null && phone != null) {
+                orderManager.addOrder(userSession.getId(), address, phone, email, date, totalCost);
+                Order order = orderManager.getLatestOrder(userSession.getId());
+                for (int i = 0; i < carts.size(); i++) {
+                    Cart cart = carts.get(i);
+                    Product product = productManager.getProduct(cart.getProductID());
+                    orderDetailManager.addOrderDetail(order.getId(), product.getId(), product.getPrice());
+                    product.setQuantity(product.getQuantity() - 1);
+                    product.setSoldQuantity(product.getSoldQuantity() + 1);
+                    productManager.updateProduct(product);
+                    
+
+                }
+                cartManager.deleteCart(userSession.getId());
+            }
+
+            request.getRequestDispatcher("/pages/checkout.jsp").forward(request, response);
+
         }
     }
 
