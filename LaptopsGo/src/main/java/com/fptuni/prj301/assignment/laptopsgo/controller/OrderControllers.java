@@ -70,18 +70,17 @@ public class OrderControllers extends HttpServlet {
             }
         }
         if (path.equals("/purchase")) {
-            String address = request.getParameter("address");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            long millis = System.currentTimeMillis();
-            java.sql.Date date = new java.sql.Date(millis);
-
             HttpSession httpSession = request.getSession();
             User userSession = (User) httpSession.getAttribute("userSession");
 
             if (userSession == null || !userSession.getRole().equals("buyer")) {
                 response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
             }
+            String address = request.getParameter("address");
+            String email = request.getParameter("email");
+            String phone = request.getParameter("phone");
+            long millis = System.currentTimeMillis();
+            java.sql.Date date = new java.sql.Date(millis);
 
             ArrayList<Cart> carts = cartManager.getCartList(userSession.getId());
             ArrayList<Product> products = new ArrayList<>();
@@ -103,7 +102,6 @@ public class OrderControllers extends HttpServlet {
                     product.setQuantity(product.getQuantity() - 1);
                     product.setSoldQuantity(product.getSoldQuantity() + 1);
                     productManager.updateProduct(product);
-                    
 
                 }
                 cartManager.deleteCart(userSession.getId());

@@ -118,6 +118,28 @@ public class UserManager {
         return user;
     }
 
+    public User getNormalUserInfo(String username) {
+        User user = null;
+        String sql = "SELECT * FROM [Users] WHERE username = ?";
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setFullname(rs.getString("fullname"));
+                user.setEmail(rs.getString("email"));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return user;
+    }
+
     public User checkUserByEmail(String email) {
         User user = null;
         String sql = "SELECT * FROM [Users] WHERE email = ?";

@@ -82,7 +82,7 @@ public class CartControllers extends HttpServlet {
                     // check cart and insert cart
                     if (!cartManager.checkCartItem(userSession.getId(), productID)) {
                         // insert new cart
-                        System.out.println(cartManager.insertCartItem(userSession.getId(), productID));;
+                       cartManager.insertCartItem(userSession.getId(), productID);
 
                     }
                     response.sendRedirect(request.getContextPath() + "/Order/");

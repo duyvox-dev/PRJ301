@@ -49,27 +49,7 @@
     <body>
 
         <div class="login__page">
-            <div style="position: absolute; top: 0; right: 0;">
 
-                <c:if test="${not empty errors['username']}">
-                    <div class="alert alert-danger" role="alert">
-                        ${errors['username']}
-                    </div>
-
-                </c:if>
-
-                <c:if test="${not empty errors['email']}">
-                    <div class="alert alert-danger" role="alert">
-                        ${errors['email']}
-                    </div>
-
-                </c:if>
-                <c:if test="${not empty errors['confirm-password']}">
-                    <div class="alert alert-danger" role="alert">
-                        ${errors['confirm-password']}
-                    </div>
-                </c:if>
-            </div>
 
             <div class="login__main shadow-sm">
                 <a class="logo" href="#">
@@ -82,6 +62,12 @@
                         <input type="text" name="username" required />
 
                     </div>
+                    <c:if test="${not empty errors['username']}">
+                        <p class="text-danger">
+                            ${errors['username']}
+                        </p>
+
+                    </c:if>
                     <div class="input__group">
                         <label for="password">Password </label>
                         <input type="password" name="password" required minLength="8" />
@@ -96,6 +82,12 @@
                             />
 
                     </div>
+                    <c:if test="${not empty errors['confirm-password']}">
+                        <p class="text-danger">
+                            ${errors['confirm-password']}
+                        </p>
+
+                    </c:if>
                     <div class="input__group">
                         <label for="fullname">Full name </label>
                         <input type="text" name="fullname" required />
@@ -104,6 +96,12 @@
                         <label for="email">Email </label>
                         <input type="email" name="email" required />
                     </div>
+                    <c:if test="${not empty errors['email']}">
+                        <p class="text-danger">
+                            ${errors['email']}
+                        </p>
+
+                    </c:if>
                     <div class="input__group checkbox">
                         <label for="role">Role </label>
                         <select name="role" id="">

@@ -115,21 +115,35 @@
                                 </p>
                             </div>
                             <div class="detail__btn-group">
-                                <c:if test="${role == 'admin' || role == 'seller'}">
-                                    <a href="#" class="btn btn-secondary" disabled
-                                       >Please use buyer account</a
-                                    >
-                                </c:if>
-                                <c:if test= "${role == 'buyer'}">
-                                    <a href="${pageContext.request.contextPath}/Cart/add?productID=${product.getId()}" class="btn btn__solid-red"
-                                       >BUY NOW</a
-                                    >
-                                </c:if>
-                                <c:if test= "${ empty role}">
-                                    <a href="${pageContext.request.contextPath}/auth/login.jsp" class="btn btn__solid-primary"
-                                       >Please login to buy</a
-                                    >
-                                </c:if>
+                                <c:choose>
+
+                                    <c:when test = "${product.getQuantity() == 0}">
+                                        <a href="#" class="btn btn-secondary" disabled
+                                           >Sold out</a
+                                        >
+                                    </c:when>
+
+
+
+                                    <c:otherwise>
+                                        <c:if test="${role == 'admin' || role == 'seller'}">
+                                            <a href="#" class="btn btn-secondary" disabled
+                                               >Please use buyer account</a
+                                            >
+                                        </c:if>
+                                        <c:if test= "${role == 'buyer'}">
+                                            <a href="${pageContext.request.contextPath}/Cart/add?productID=${product.getId()}" class="btn btn__solid-red"
+                                               >BUY NOW</a
+                                            >
+                                        </c:if>
+                                        <c:if test= "${ empty role}">
+                                            <a href="${pageContext.request.contextPath}/auth/login.jsp" class="btn btn__solid-primary"
+                                               >Please login to buy</a
+                                            >
+                                        </c:if>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </div>
                         </div>
                     </div>

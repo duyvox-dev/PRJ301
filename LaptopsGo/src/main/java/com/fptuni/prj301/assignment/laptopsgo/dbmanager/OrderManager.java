@@ -42,7 +42,7 @@ public class OrderManager {
     }
     public Order getLatestOrder(int buyerID){
         Order order = null;
-        String sql = "select top 1 * from [OrderHistory] WHERE buyerID = ? order by createdDate DESC";
+        String sql = "select top 1 * from [OrderHistory] WHERE buyerID = ? order by id DESC";
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -58,14 +58,14 @@ public class OrderManager {
     }
     public ArrayList<Order> getOrderListByBuyer(int buyerId) {
         ArrayList<Order> orders = new ArrayList<>();
-        String sql = "Select * from OrderHistory where buyerID = ?";
+        String sql = "Select * from OrderHistory where buyerID = ? order by id DESC";
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, buyerId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                orders.add(new Order(rs.getInt("id"), rs.getInt("buyerId"), rs.getString("address"), rs.getString("phone"), rs.getString("emal"), rs.getDate("createdDate"), rs.getDouble("totalCost")));
+                orders.add(new Order(rs.getInt("id"), rs.getInt("buyerId"), rs.getString("address"), rs.getString("phone"), rs.getString("email"), rs.getDate("createdDate"), rs.getDouble("totalCost")));
             }
         } catch (Exception e) {
             System.out.println(e);
