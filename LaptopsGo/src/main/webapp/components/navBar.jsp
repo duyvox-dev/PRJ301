@@ -76,7 +76,7 @@
                 <div class="navbar__action">
 
                     <!-- buyer -->
-                    <a href="${pageContext.request.contextPath}/Cart" class="navbar__cart">
+                    <a href="${pageContext.request.contextPath}/Cart/" class="navbar__cart">
                         <i class="fa-solid fa-cart-shopping"></i>
                     </a> 
                     <!--  -->

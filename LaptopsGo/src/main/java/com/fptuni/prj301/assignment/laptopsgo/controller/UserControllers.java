@@ -5,10 +5,18 @@
  */
 package com.fptuni.prj301.assignment.laptopsgo.controller;
 
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.CartManager;
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.OrderDetailManager;
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.OrderManager;
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.ProductManager;
 import com.fptuni.prj301.assignment.laptopsgo.dbmanager.UserManager;
+import com.fptuni.prj301.assignment.laptopsgo.model.Order;
+import com.fptuni.prj301.assignment.laptopsgo.model.OrderDetail;
+import com.fptuni.prj301.assignment.laptopsgo.model.Product;
 import com.fptuni.prj301.assignment.laptopsgo.model.User;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
@@ -101,11 +109,11 @@ public class UserControllers extends HttpServlet {
                         user.setPassword(password);
                         user.setBanStatus(0);
                         user.setEmail(email);
-                         user.setRole(role);
-                         user.setFullname(fullName);
+                        user.setRole(role);
+                        user.setFullname(fullName);
                         boolean addUserSuccess = userManager.addUser(user);
                         if (addUserSuccess) {
-                            response.sendRedirect(request.getContextPath() +"/auth/login.jsp");
+                            response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
                         }
                     }
                     request.setAttribute("errors", errors);
@@ -114,6 +122,99 @@ public class UserControllers extends HttpServlet {
             } catch (Exception e) {
                 System.out.println(e);
             }
+        } else if (path.equals("/buyHistory")) {
+            try {
+                ProductManager productManager = new ProductManager();
+                CartManager cartManager = new CartManager();
+                OrderManager orderManager = new OrderManager();
+                OrderDetailManager orderDetailManager = new OrderDetailManager();
+                HttpSession httpSession = request.getSession();
+
+                User userSession = (User) httpSession.getAttribute("userSession");
+
+                if (userSession == null || !userSession.getRole().equals("buyer")) {
+                    response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
+                }
+                // key contain order ID, arrayList contain list of product
+                HashMap<Integer, ArrayList<Product>> orderDetailList = new HashMap<>();
+                ArrayList<Order> orderList = new ArrayList<>();
+                orderList = orderManager.getOrderListByBuyer(userSession.getId());
+                for (int i = 0; i < orderList.size(); i++) {
+                    Order order = orderList.get(i);
+                    ArrayList<OrderDetail> orDetails = new ArrayList<>();
+                    orDetails = orderDetailManager.getOrderDetail(order.getId());
+                    ArrayList<Product> products = new ArrayList<>();
+
+                    for (int j = 0; j < orDetails.size(); j++) {
+                        OrderDetail orDetail = orDetails.get(j);
+                        Product product = productManager.getProduct(orDetail.getProductID());
+                        product.setPrice(orDetail.getPrice());
+                        products.add(product);
+                    }
+                    orderDetailList.put(order.getId(), products);
+                }
+
+                request.setAttribute("orderDetailList", orderDetailList);
+                request.setAttribute("orderList", orderList);
+
+                request.getRequestDispatcher("/buyer/buyHistory.jsp").forward(request, response);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        } else if (path.equals("/profile")) {
+            try {
+                HttpSession httpSession = request.getSession();
+                User userSession = (User) httpSession.getAttribute("userSession");
+                if (userSession == null) {
+                    response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
+                }
+
+                UserManager userManager = new UserManager();
+                User userInfo = userManager.getNormalUserInfo(userSession.getUsername());
+                request.setAttribute("userInfo", userInfo);
+                request.getRequestDispatcher("/pages/profile.jsp").forward(request, response);
+
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+        } else if (path.equals("/edit-profile")) {
+            try {
+                HttpSession httpSession = request.getSession();
+                User userSession = (User) httpSession.getAttribute("userSession");
+
+                if (userSession == null) {
+                    response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
+                }
+                boolean hasError = false;
+                String password = (request.getParameter("password"));
+                String confirmPassword = request.getParameter("confirm-password");
+                String fullName = (request.getParameter("fullname")).trim();
+                String errors = "";
+                String success = "";
+                if (password != null && confirmPassword != null && fullName != null) {
+                    UserManager userManager = new UserManager();
+                    if (!password.equals(confirmPassword)) {
+                        errors = "password and confirm password do not match";
+                        hasError = true;
+                    }
+                    if (!hasError) {
+                        User user = userManager.getNormalUserInfo(userSession.getUsername());
+                        user.setPassword(password);
+                        user.setFullname(fullName);
+                        userManager.updateUser(user);
+                        success = "Update successfully";
+                    }
+                    request.setAttribute("errors", errors);
+                    request.setAttribute("success", success);
+
+                    request.getRequestDispatcher("/User/profile").forward(request, response);
+
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
         }
     }
 

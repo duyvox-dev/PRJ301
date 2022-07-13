@@ -5,12 +5,19 @@
  */
 package com.fptuni.prj301.assignment.laptopsgo.controller;
 
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.CartManager;
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.ProductManager;
+import com.fptuni.prj301.assignment.laptopsgo.model.Cart;
+import com.fptuni.prj301.assignment.laptopsgo.model.Product;
+import com.fptuni.prj301.assignment.laptopsgo.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,22 +36,84 @@ public class CartControllers extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CartControllers</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CartControllers at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String path = request.getPathInfo();
+        ProductManager productManager = new ProductManager();
+        CartManager cartManager = new CartManager();
+        if (path.equals("/")) {
+            try {
+                HttpSession httpSession = request.getSession();
+                User userSession = (User) httpSession.getAttribute("userSession");
+
+                if (userSession == null || !userSession.getRole().equals("buyer")) {
+                    response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
+                }
+                ArrayList<Cart> carts = cartManager.getCartList(userSession.getId());
+                ArrayList<Product> products = new ArrayList<>();
+                double totalCost = 0;
+                for (int i = 0; i < carts.size(); i++) {
+                    Cart cart = carts.get(i);
+                    Product product = productManager.getProduct(cart.getProductID());
+                    products.add(product);
+                    totalCost += product.getPrice();
+                }
+
+                request.setAttribute("productList", products);
+                request.setAttribute("totalCost", totalCost);
+
+                request.getRequestDispatcher("/pages/cart.jsp").forward(request, response);
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        }
+        if (path.equals("/add")) {
+            HttpSession httpSession = request.getSession();
+            User userSession = (User) httpSession.getAttribute("userSession");
+
+            if (userSession == null || !userSession.getRole().equals("buyer")) {
+                response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
+            }
+
+            String productIDstr = request.getParameter("productID");
+            if (productIDstr != null) {
+                int productID = Integer.parseInt(productIDstr);
+                Product product = productManager.getProduct(productID);
+                if (product.getQuantity() > 0) {
+
+                    // check cart and insert cart
+                    if (!cartManager.checkCartItem(userSession.getId(), productID)) {
+                        // insert new cart
+                       cartManager.insertCartItem(userSession.getId(), productID);
+
+                    }
+                    response.sendRedirect(request.getContextPath() + "/Order/");
+
+                } else {
+                    request.setAttribute("error", "product sold out");
+                    request.getRequestDispatcher(request.getContextPath() + "/Product/detail?id=" + productID).forward(request, response);;
+                }
+            }
+
+        }
+        if (path.equals("/delete")) {
+            HttpSession httpSession = request.getSession();
+            User userSession = (User) httpSession.getAttribute("userSession");
+
+            if (userSession == null || !userSession.getRole().equals("buyer")) {
+                response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
+            }
+
+            String productIDstr = request.getParameter("productID");
+            if (productIDstr != null) {
+                int productID = Integer.parseInt(productIDstr);
+                cartManager.deleteCartByProduct(productID);
+
+            }
+            response.sendRedirect(request.getContextPath() + "/Cart/");
+
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -82,5 +151,4 @@ public class CartControllers extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
