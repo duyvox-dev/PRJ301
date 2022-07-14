@@ -95,8 +95,8 @@
                         </thead>
                         <tbody>
                             <c:set var="products" value="${requestScope.products}"/>
-                            <c:set var="categories" value="${requestScope.brands}"/>
-                            <c:set var="brands" value="${requestScope.categories}"/>
+                            <c:set var="categories" value="${requestScope.categories}"/>
+                            <c:set var="brands" value="${requestScope.brands}"/>
 
                             <c:forEach var="o" items="${products}"> 
 

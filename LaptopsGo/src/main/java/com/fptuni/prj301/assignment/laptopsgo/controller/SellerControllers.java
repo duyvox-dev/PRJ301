@@ -124,70 +124,92 @@ public class SellerControllers extends HttpServlet {
             response.sendRedirect("/Seller/dashboard");
 
         } else if (path.equals("/edit")) {
-//            check role, only seller can add 
-            HttpSession httpSession = request.getSession();
-            User userSession = (User) httpSession.getAttribute("userSession");
-            if (userSession == null || !userSession.getRole().equals("seller")) {
-                response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
-            }
-            long millis = System.currentTimeMillis();
-            java.sql.Date date = new java.sql.Date(millis);
-
-            String action = request.getParameter("action");
-            String idStr = request.getParameter("id").trim();
-            String categoryIDStr = request.getParameter("categoryID").trim();
-            String brandIDStr = request.getParameter("brandID").trim();
-            String quantityStr = request.getParameter("quantity").trim();
-            String imageURL = request.getParameter("imageURL").trim();
-            String description = request.getParameter("description").trim();
-            String isNewStr = request.getParameter("isNew").trim();
-
-            if (action != null && action.equals("")
-                    && categoryIDStr != null && !categoryIDStr.equals("")
-                    && brandIDStr != null && !brandIDStr.equals("")
-                    && quantityStr != null && !quantityStr.equals("")
-                    && imageURL != null && !imageURL.equals("")
-                    && description != null && !description.equals("")
-                    && isNewStr != null && !isNewStr.equals("")) {
-
-                int isNew = Integer.parseInt(isNewStr);
-                int categoryID = Integer.parseInt(categoryIDStr);
-                int brandID = Integer.parseInt(brandIDStr);
-                int quantity = Integer.parseInt(quantityStr);
-
-                Product product = new Product();
-                product.setSellerID(userSession.getId());
-                product.setCategoryID(categoryID);
-                product.setBrandID(brandID);
-                product.setQuantity(quantity);
-                product.setSoldQuantity(0);
-                product.setDescription(description);
-                product.setDeleteStatus(0);
-                product.setIsNew(isNew);
-                product.setImageURL(imageURL);
-                String success = "";
-                String error = "";
-
-                if (action.equals("create")) {
-                    if (productManager.addProduct(product)) {
-                        success = "Create product successfully";
-                    } else {
-                        error = "Fail to create product";
-                    }
-
-                } else if (action.equals("edit")) {
-                    int id = Integer.parseInt(idStr);
-                    product.setId(id);
-                    if (productManager.updateProduct(product)) {
-                        success = "Update product successfully";
-                    } else {
-                        error = "Fail to update product";
-                    }
+            try {
+                //            check role, only seller can add 
+                HttpSession httpSession = request.getSession();
+                User userSession = (User) httpSession.getAttribute("userSession");
+                if (userSession == null || !userSession.getRole().equals("seller")) {
+                    response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
                 }
-                request.setAttribute("error", error);
-                request.setAttribute("success", success);
-                request.getRequestDispatcher("/Seller/dashboard").forward(request, response);
+                long millis = System.currentTimeMillis();
+                java.sql.Date date = new java.sql.Date(millis);
 
+                String action = request.getParameter("action");
+                String idStr = request.getParameter("productID");
+                String categoryIDStr = request.getParameter("categoryID");
+                String name = request.getParameter("name");
+                String brandIDStr = request.getParameter("brandID");
+                String quantityStr = request.getParameter("quantity");
+                String imageURL = request.getParameter("imageURL");
+                String description = request.getParameter("description");
+                String isNewStr = request.getParameter("isNew");
+                String priceStr = request.getParameter("price");
+                if (action != null && !action.equals("")
+                        && categoryIDStr != null && !categoryIDStr.equals("")
+                        && brandIDStr != null && !brandIDStr.equals("")
+                        && quantityStr != null && !quantityStr.equals("")
+                        && imageURL != null && !imageURL.equals("")
+                        && description != null && !description.equals("")
+                        && isNewStr != null && !isNewStr.equals("")
+                        && priceStr != null && !priceStr.equals("")) {
+
+                    int isNew = Integer.parseInt(isNewStr);
+                    int categoryID = Integer.parseInt(categoryIDStr);
+
+                    int brandID = Integer.parseInt(brandIDStr);
+                    
+                    int quantity = Integer.parseInt(quantityStr);
+                    double price = Double.parseDouble(priceStr);
+                    String success = "";
+                    String error = "";
+
+                    if (action.equals("create")) {
+                        Product product = new Product();
+                        product.setName(name);
+                        product.setSellerID(userSession.getId());
+                        product.setCategoryID(categoryID);
+                        product.setBrandID(brandID);
+                        product.setQuantity(quantity);
+                        product.setSoldQuantity(0);
+                        product.setDescription(description);
+                        product.setIsNew(isNew);
+                        product.setDeleteStatus(0);
+                        product.setPrice(price);
+                        product.setImageURL(imageURL);
+
+                        product.setCreatedDate(date);
+                        product.setLastModefiedDate(date);
+                        if (productManager.addProduct(product)) {
+                            success = "Create product successfully";
+                        } else {
+                            error = "Fail to create product";
+                        }
+
+                    } else if (action.equals("edit")) {
+                        int id = Integer.parseInt(idStr);
+                        Product product = productManager.getProduct(id);
+                        product.setName(name);
+                        product.setCategoryID(categoryID);
+                        product.setBrandID(brandID);
+                        product.setQuantity(quantity);
+                        product.setDescription(description);
+                        product.setIsNew(isNew);
+                        product.setImageURL(imageURL);
+                        product.setLastModefiedDate(date);
+                        product.setPrice(price);
+
+                        if (productManager.updateProduct(product)) {
+                            success = "Update product successfully";
+                        } else {
+                            error = "Fail to update product";
+                        }
+                    }
+                    request.setAttribute("error", error);
+                    request.setAttribute("success", success);
+                    response.sendRedirect(request.getContextPath() + "/Seller/dashboard");
+                }
+            } catch (Exception ex) {
+                System.out.println(ex);
             }
 
         }

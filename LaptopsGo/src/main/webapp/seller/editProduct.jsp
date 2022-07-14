@@ -76,11 +76,11 @@
 
             <h2 class="checkout__heading text-capitalize">${action} product</h2>
 
-            <form action="${pageContext.request.contextPath}/Seller/edit" class="login__form" method = "POST">
+            <form action="${pageContext.request.contextPath}/Seller/edit" class="" method = "POST">
                 <c:if test="${not empty role && product.getId() != ''}">
                     <div class="input__group">
-                        <label for="id">Id</label>
-                        <input type="text" name="id" required disabled value="${product.getId()}" />
+                        <label for="productID">Id</label>
+                        <input type="text" name="productID" required readonly  value="${product.getId()}" />
                     </div>
                 </c:if>
 
@@ -96,6 +96,14 @@
                 <div class="input__group">
                     <label for="imageURL">ImageURL </label>
                     <input type="text" name="imageURL" required  value="${product.getImageURL()}"/>
+                </div>
+                <div class="input__group">
+                    <label for="quantity">Quantity </label>
+                    <input type="number" name="quantity" min="0" required  value="${product.getQuantity()}"/>
+                </div>
+                <div class="input__group">
+                    <label for="price">Price in $ </label>
+                    <input type="text" name="price" required  value="${product.getPrice()}"/>
                 </div>
                 <div class="input__group">
                     <label for="categoryID">Category </label>
@@ -155,7 +163,7 @@
 
                             </c:otherwise>
                         </c:choose>
-                                <c:choose>
+                        <c:choose>
 
                             <c:when test = "${1 == product.getIsNew()}">
                                 <option value="1" selected>New</option>
@@ -170,42 +178,42 @@
 
                             </c:otherwise>
                         </c:choose>
-                    
-
-                </select>
-            </div>
-            <c:if test="${success != ''}">
-                <p class = "text-success">${success}</p>
-            </c:if>
-            <input type="text" hidden values="${action}">
-            <button class="btn btn__solid-red">Save</button>
-        </form>
-    </div>
 
 
+                    </select>
+                </div>
+                <c:if test="${success != ''}">
+                    <p class = "text-success">${success}</p>
+                </c:if>
+                <input type="text" hidden value="${action}" name="action">
+                <button class="btn btn__solid-red">Save</button>
+            </form>
+        </div>
 
 
-    <%@include file="../components/footer.jsp" %>
 
-    <!-- Bootstrap -->
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"
-    ></script>
-    <!-- jquery -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    ></script>
-    <!-- Slick -->
-    <script
-        type="text/javascript"
-        src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
-    ></script>
-    <!--  -->
-    <script src="${pageContext.request.contextPath}/js/script.js"></script>
-</body>
+
+        <%@include file="../components/footer.jsp" %>
+
+        <!-- Bootstrap -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"
+        ></script>
+        <!-- jquery -->
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <!-- Slick -->
+        <script
+            type="text/javascript"
+            src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+        ></script>
+        <!--  -->
+        <script src="${pageContext.request.contextPath}/js/script.js"></script>
+    </body>
 </html>

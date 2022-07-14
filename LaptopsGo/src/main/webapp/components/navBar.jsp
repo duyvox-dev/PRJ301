@@ -137,7 +137,7 @@
 
 
                     <!-- role == seller -->
-                    <a href="#" class="btn btn__solid-red">
+                    <a href="${pageContext.request.contextPath}/Seller/add?action=create" class="btn btn__solid-red">
                         <span>Post a product </span>
                         <i class="fa-solid fa-arrow-trend-up"></i>
                     </a>

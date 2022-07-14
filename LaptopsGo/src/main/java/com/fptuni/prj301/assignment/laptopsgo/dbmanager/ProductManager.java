@@ -80,6 +80,7 @@ public class ProductManager {
     }
 
     public boolean updateProduct(Product newProduct) {
+        System.out.println(newProduct.getId());
         String sql = "UPDATE [Product] SET  categoryID = ? , brandID = ?, name = ?, price = ?, description = ? , imageURL = ? , quantity = ?, soldQuantity= ?, createdDate = ?, lastModefiedDate = ?, isNew = ? WHERE id = ?";
         try {
             Connection con = DBUtils.getConnection();
@@ -96,9 +97,8 @@ public class ProductManager {
             ps.setDate(10, newProduct.getLastModefiedDate());
             ps.setInt(11, newProduct.getIsNew());
             ps.setInt(12, newProduct.getId());
-
             int res = ps.executeUpdate();
-            if (res >= 0) {
+            if (res > 0) {
                 return true;
             }
         } catch (Exception e) {
