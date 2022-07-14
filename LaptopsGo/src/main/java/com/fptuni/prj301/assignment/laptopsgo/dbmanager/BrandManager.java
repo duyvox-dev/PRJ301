@@ -132,13 +132,13 @@ public class BrandManager {
     public boolean updateBrand(Brand newBrand){
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Update ProductBrand set name = ? and set ImageURL = ? WHERE id = ?");
+            PreparedStatement ps = con.prepareStatement("Update ProductBrand SET name = ?, imageURL = ? WHERE id = ?");
             ps.setString(1, newBrand.getName());
             ps.setString(2, newBrand.getImageURL());
             ps.setInt(3, newBrand.getId());
             
             int res = ps.executeUpdate();
-            if (res >= 0){
+            if (res > 0){
                 return true;
             }
         }catch (Exception e){
@@ -154,7 +154,7 @@ public class BrandManager {
             ps.setInt(1, brandId);
             
             int res = ps.executeUpdate();
-            if (res >= 0){
+            if (res > 0){
                 return true;
             }
         }catch (Exception e){

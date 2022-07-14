@@ -140,6 +140,37 @@ public class ProductManager {
         return products;
     }
 
+    public ArrayList<Product> getProductList() {
+        ArrayList<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM [Product] WHERE deleteStatus = 0";
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setBrandID(rs.getInt("brandID"));
+                product.setCategoryID(rs.getInt("categoryID"));
+                product.setSellerID(rs.getInt("sellerID"));
+                product.setPrice(rs.getDouble("price"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setImageURL(rs.getString("imageURL"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setSoldQuantity(rs.getInt("soldQuantity"));
+                product.setCreatedDate(rs.getDate("createdDate"));
+                product.setLastModefiedDate(rs.getDate("lastModefiedDate"));
+                product.setIsNew(rs.getInt("isNew"));
+                product.setDeleteStatus(rs.getInt("deleteStatus"));
+                products.add(product);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return products;
+    }
+
     public int getProductListSizeBySellerID(int sellerID) {
         int count = 0;
         try {

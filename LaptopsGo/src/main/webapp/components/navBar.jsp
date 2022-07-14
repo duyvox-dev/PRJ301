@@ -171,7 +171,7 @@
     <header>
         <nav class="navbar fixed-top navbar-expand-lg shadow">
             <div class="container navbar__main">
-                <a class="navbar-brand navbar__logo" href="./">
+                <a class="navbar-brand navbar__logo" href="${pageContext.request.contextPath}">
                     <i class="fa-solid fa-laptop-code"></i>
                     <span>LaptopsGo</span>
                 </a>
