@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -67,7 +68,21 @@ public class CategoryManager {
         }
         return cates;
     }
+    public HashMap<Integer, String> getCategoryListMap() {
+        HashMap<Integer, String> categories = new HashMap<>();
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement("Select * from ProductCategory");
 
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                categories.put(rs.getInt("id"), rs.getString("name"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return categories;
+    }
     public Category getCategory(int cateId) {
         Category gcate = null;
         try {

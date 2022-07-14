@@ -89,7 +89,7 @@ public class CartControllers extends HttpServlet {
 
                 } else {
                     request.setAttribute("error", "product sold out");
-                    request.getRequestDispatcher(request.getContextPath() + "/Product/detail?id=" + productID).forward(request, response);;
+                    request.getRequestDispatcher("/Product/detail?id=" + productID).forward(request, response);;
                 }
             }
 

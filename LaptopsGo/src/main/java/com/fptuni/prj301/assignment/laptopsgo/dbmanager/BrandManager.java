@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -69,6 +70,23 @@ public class BrandManager {
             e.printStackTrace();
         }
         return brand;
+    }
+    // get all list brand
+
+    public HashMap<Integer, String> getBrandListMap() {
+        HashMap<Integer, String> brands = new HashMap<>();
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement("Select * from ProductBrand");
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                brands.put(rs.getInt("id"), rs.getString("name"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return brands;
     }
 // get brand by id
 

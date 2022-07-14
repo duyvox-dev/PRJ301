@@ -61,12 +61,13 @@ public class ProductManager {
     }
 
     public boolean deleteProduct(int productID) {
-        String sql = "UPDATE [Product] SET deleteStatus = ? WHERE id = ?";
+        String sql = "UPDATE [Product] SET deleteStatus = ?, quantity = ? WHERE id = ?";
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, 1);
-            ps.setInt(1, productID);
+            ps.setInt(2, 0);
+            ps.setInt(3, productID);
 
             int res = ps.executeUpdate();
             if (res >= 0) {
@@ -109,7 +110,7 @@ public class ProductManager {
 
     public ArrayList<Product> getProductBySellerID(int sellerID) {
         ArrayList<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM [Product] WHERE sellerID = ?";
+        String sql = "SELECT * FROM [Product] WHERE sellerID = ? and deleteStatus = 0";
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -143,7 +144,7 @@ public class ProductManager {
         int count = 0;
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("select COUNT(id) AS [size] from [Product] WHERE sellerID = ?");
+            PreparedStatement ps = con.prepareStatement("select COUNT(id) AS [size] from [Product] WHERE sellerID = ? and deleteStatus = 0");
             ps.setInt(1, sellerID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
