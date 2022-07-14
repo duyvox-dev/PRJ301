@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -70,6 +71,23 @@ public class BrandManager {
         }
         return brand;
     }
+    // get all list brand
+
+    public HashMap<Integer, String> getBrandListMap() {
+        HashMap<Integer, String> brands = new HashMap<>();
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement("Select * from ProductBrand");
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                brands.put(rs.getInt("id"), rs.getString("name"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return brands;
+    }
 // get brand by id
 
     public Brand getBrand(int brandId) {
@@ -114,13 +132,13 @@ public class BrandManager {
     public boolean updateBrand(Brand newBrand){
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("Update ProductBrand set name = ? and set ImageURL = ? WHERE id = ?");
+            PreparedStatement ps = con.prepareStatement("Update ProductBrand SET name = ?, imageURL = ? WHERE id = ?");
             ps.setString(1, newBrand.getName());
             ps.setString(2, newBrand.getImageURL());
             ps.setInt(3, newBrand.getId());
             
             int res = ps.executeUpdate();
-            if (res >= 0){
+            if (res > 0){
                 return true;
             }
         }catch (Exception e){
@@ -136,7 +154,7 @@ public class BrandManager {
             ps.setInt(1, brandId);
             
             int res = ps.executeUpdate();
-            if (res >= 0){
+            if (res > 0){
                 return true;
             }
         }catch (Exception e){

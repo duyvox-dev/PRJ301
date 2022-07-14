@@ -76,7 +76,7 @@ public class UserManager {
     }
 
     public boolean banUser(int userID) {
-        String sql = "UPDATE [Users] SET  banStatus = ? WHERE id = ?";
+        String sql = "UPDATE [Users] SET  banStatus = ? WHERE id = ? AND role != 'admin'";
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -139,7 +139,27 @@ public class UserManager {
         }
         return user;
     }
-
+    public User getNormalUserInfoByID(int id) {
+        User user = null;
+        String sql = "SELECT * FROM [Users] WHERE id = ?";
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setFullname(rs.getString("fullname"));
+                user.setEmail(rs.getString("email"));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return user;
+    }
     public User checkUserByEmail(String email) {
         User user = null;
         String sql = "SELECT * FROM [Users] WHERE email = ?";
@@ -200,6 +220,32 @@ public class UserManager {
         }
 
         return count;
+    }
+
+    public ArrayList<User> getUserList() {
+
+        ArrayList<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM [Users] WHERE banStatus = 0";
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+
+                user.setUsername(rs.getString("username"));
+                user.setRole(rs.getString("role"));
+                user.setFullname(rs.getString("fullname"));
+                user.setEmail(rs.getString("email"));
+                user.setBanStatus(rs.getInt("banStatus"));
+                users.add(user);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return users;
     }
 
     public ArrayList<User> getUserList(int page, int limit) {

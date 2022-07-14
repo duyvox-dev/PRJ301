@@ -61,12 +61,13 @@ public class ProductManager {
     }
 
     public boolean deleteProduct(int productID) {
-        String sql = "UPDATE [Product] SET deleteStatus = ? WHERE id = ?";
+        String sql = "UPDATE [Product] SET deleteStatus = ?, quantity = ? WHERE id = ?";
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, 1);
-            ps.setInt(1, productID);
+            ps.setInt(2, 0);
+            ps.setInt(3, productID);
 
             int res = ps.executeUpdate();
             if (res >= 0) {
@@ -79,6 +80,7 @@ public class ProductManager {
     }
 
     public boolean updateProduct(Product newProduct) {
+        System.out.println(newProduct.getId());
         String sql = "UPDATE [Product] SET  categoryID = ? , brandID = ?, name = ?, price = ?, description = ? , imageURL = ? , quantity = ?, soldQuantity= ?, createdDate = ?, lastModefiedDate = ?, isNew = ? WHERE id = ?";
         try {
             Connection con = DBUtils.getConnection();
@@ -95,9 +97,8 @@ public class ProductManager {
             ps.setDate(10, newProduct.getLastModefiedDate());
             ps.setInt(11, newProduct.getIsNew());
             ps.setInt(12, newProduct.getId());
-
             int res = ps.executeUpdate();
-            if (res >= 0) {
+            if (res > 0) {
                 return true;
             }
         } catch (Exception e) {
@@ -109,7 +110,7 @@ public class ProductManager {
 
     public ArrayList<Product> getProductBySellerID(int sellerID) {
         ArrayList<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM [Product] WHERE sellerID = ?";
+        String sql = "SELECT * FROM [Product] WHERE sellerID = ? and deleteStatus = 0";
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -139,11 +140,42 @@ public class ProductManager {
         return products;
     }
 
+    public ArrayList<Product> getProductList() {
+        ArrayList<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM [Product] WHERE deleteStatus = 0";
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setBrandID(rs.getInt("brandID"));
+                product.setCategoryID(rs.getInt("categoryID"));
+                product.setSellerID(rs.getInt("sellerID"));
+                product.setPrice(rs.getDouble("price"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setImageURL(rs.getString("imageURL"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setSoldQuantity(rs.getInt("soldQuantity"));
+                product.setCreatedDate(rs.getDate("createdDate"));
+                product.setLastModefiedDate(rs.getDate("lastModefiedDate"));
+                product.setIsNew(rs.getInt("isNew"));
+                product.setDeleteStatus(rs.getInt("deleteStatus"));
+                products.add(product);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return products;
+    }
+
     public int getProductListSizeBySellerID(int sellerID) {
         int count = 0;
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("select COUNT(id) AS [size] from [Product] WHERE sellerID = ?");
+            PreparedStatement ps = con.prepareStatement("select COUNT(id) AS [size] from [Product] WHERE sellerID = ? and deleteStatus = 0");
             ps.setInt(1, sellerID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
