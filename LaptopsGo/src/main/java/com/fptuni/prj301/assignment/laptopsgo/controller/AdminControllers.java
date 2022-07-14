@@ -5,12 +5,20 @@
  */
 package com.fptuni.prj301.assignment.laptopsgo.controller;
 
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.BrandManager;
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.CartManager;
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.CategoryManager;
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.ProductManager;
+import com.fptuni.prj301.assignment.laptopsgo.dbmanager.UserManager;
+import com.fptuni.prj301.assignment.laptopsgo.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,18 +37,78 @@ public class AdminControllers extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AdminControllers</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AdminControllers at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String path = request.getPathInfo();
+        BrandManager brandManager = new BrandManager();
+        CategoryManager cateManager = new CategoryManager();
+        UserManager userManager = new UserManager();
+        ProductManager productManager = new ProductManager();
+        CartManager cartManager = new CartManager();
+        if (path.equals("/user")) {
+            HttpSession httpSession = request.getSession();
+            User userSession = (User) httpSession.getAttribute("userSession");
+
+            if (userSession == null || !userSession.getRole().equals("admin")) {
+                response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
+            }
+            String errors = "";
+            String success = "";
+            String searchKey = request.getParameter("searchKey");
+            String action = request.getParameter("action");
+            String userIdStr = request.getParameter("userID");
+            ArrayList<User> users = new ArrayList<>();
+
+            if (action != null && !action.equals("")) {
+                if (action.equals("ban")) {
+                    int userId = Integer.parseInt(userIdStr);
+
+                    if (userManager.banUser(userId)) {
+                        success = "Ban user successfully";
+                    } else {
+                        errors = "Ban user fail!";
+                    }
+                }
+            }
+            if (searchKey != null && !searchKey.equals("")) {
+                User user = userManager.getNormalUserInfo(searchKey);
+                if (user != null) {
+                    users.add(user);
+                }
+            } else {
+                users = userManager.getUserList();
+            }
+                        request.setAttribute("searchKey", searchKey);
+
+            request.setAttribute("errors", errors);
+            request.setAttribute("success", success);
+            request.setAttribute("users", users);
+            request.getRequestDispatcher("/admin/userManagement.jsp").forward(request, response);
+        } else if (path.equals("/brand")) {
+            HttpSession httpSession = request.getSession();
+            User userSession = (User) httpSession.getAttribute("userSession");
+
+            if (userSession == null || !userSession.getRole().equals("admin")) {
+                response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
+            }
+
+            request.getRequestDispatcher("/admin/brandManagement.jsp").forward(request, response);
+        } else if (path.equals("/category")) {
+            HttpSession httpSession = request.getSession();
+            User userSession = (User) httpSession.getAttribute("userSession");
+
+            if (userSession == null || !userSession.getRole().equals("admin")) {
+                response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
+            }
+
+            request.getRequestDispatcher("/admin/categoryManagement.jsp").forward(request, response);
+        } else if (path.equals("/product")) {
+            HttpSession httpSession = request.getSession();
+            User userSession = (User) httpSession.getAttribute("userSession");
+
+            if (userSession == null || !userSession.getRole().equals("admin")) {
+                response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
+            }
+
+            request.getRequestDispatcher("/admin/productManagement.jsp").forward(request, response);
         }
     }
 
