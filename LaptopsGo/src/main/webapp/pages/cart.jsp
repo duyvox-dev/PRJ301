@@ -66,87 +66,98 @@
                     </ol>
                 </div>
             </div>
-                        
+
             <!--  end Breadcrumb-->
-                    <!--  end Breadcrumb-->
-        <div class="cart__page">
-            <div class="container">
-                <h2 class="cart__heading">Cart</h2>
-                <div class="row">
-                    <div class="col-md-8 cart">
-                        <c:set var="productList" value="${requestScope.productList}"/>
-                    
-                        <div class="cart__list">
-                            <c:forEach var="o" items="${productList}"> 
-                                                    <div class="cart__item row shadow-sm">
-                                <div class="col-md-2 cart__image">
-                                    <img
-                                        src="${o.getImageURL()}"
-                                        alt=""
-                                    />
-                                </div>
-                                <div class="col-md-6 car__info">
-                                    <h3 class="cart__name">${o.getName()}</h3>
-                                    <p class="cart__description">
-                                        ${o.getDescription()}
-                                    </p>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-md-6 cart__num">
-                                            <span class="cart__quantity">
-                                                1
-                                            </span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p class="cart__price">
-                                                <span>$${o.getPrice()} </span>
-                                            </p>
-                                            <a href="${pageContext.request.contextPath}/Cart/delete?productID=${o.getId()}"
-                                                class="cart__btn cart__delete"
-                                            >
-                                                <span>Delete</span>
-                                                <span
-                                                    ><i
-                                                        class="fa-regular fa-circle-xmark"
-                                                    ></i
-                                                ></span>
-                                            </a>
-                                        </div>
+            <!--  end Breadcrumb-->
+            <div class="cart__page">
+                <div class="container">
+                    <h2 class="cart__heading">Cart</h2>
+                    <div class="row">
+                        <div class="col-md-8 cart">
+                            <c:set var="productList" value="${requestScope.productList}"/>
+                            <c:choose>
+                                <c:when test ="${not empty productList}">
+                                    <div class="cart__list">
+                                        <c:forEach var="o" items="${productList}"> 
+                                            <div class="cart__item row shadow-sm">
+                                                <div class="col-md-2 cart__image">
+                                                    <img
+                                                        src="${o.getImageURL()}"
+                                                        alt=""
+                                                        />
+                                                </div>
+                                                <div class="col-md-6 car__info">
+                                                    <h3 class="cart__name">${o.getName()}</h3>
+                                                    <p class="cart__description">
+                                                        ${o.getDescription()}
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="row">
+                                                        <div class="col-md-6 cart__num">
+                                                            <span class="cart__quantity">
+                                                                1
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p class="cart__price">
+                                                                <span>$${o.getPrice()} </span>
+                                                            </p>
+                                                            <a href="${pageContext.request.contextPath}/Cart/delete?productID=${o.getId()}"
+                                                               class="cart__btn cart__delete"
+                                                               >
+                                                                <span>Delete</span>
+                                                                <span
+                                                                    ><i
+                                                                        class="fa-regular fa-circle-xmark"
+                                                                        ></i
+                                                                    ></span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+
+
                                     </div>
-                                </div>
-                            </div>
-                    </c:forEach>
+                                </c:when>
 
-                        
+
+
+                                <c:otherwise>
+                                    <h1 class="text-center text-danger">Empty cart</h1>
+                                </c:otherwise>
+                            </c:choose>
+
+
                         </div>
-                    </div>
-                    <div class="col-md-4 cart__total">
-                        <div class="cart__total-inner shadow-sm">
-                            <h3 class="cart__total-heading">
-                                <span>Total</span>
-                            </h3>
-                        <c:set var="totalCost" value="${requestScope.totalCost}"/>
+                        <div class="col-md-4 cart__total">
+                            <div class="cart__total-inner shadow-sm">
+                                <h3 class="cart__total-heading">
+                                    <span>Total</span>
+                                </h3>
+                                <c:set var="totalCost" value="${requestScope.totalCost}"/>
 
-                            <p class="cart__total-cost">$ ${totalCost}</p>
-                            <a
-                                href="${pageContext.request.contextPath}/Order/"
-                                class="btn btn__solid-red cart__total-checkout"
-                            >
-                                <span>Checkout</span>
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                            <a
-                                href="${pageContext.request.contextPath}"
-                                class="btn btn__outline-red cart__total-back"
-                                >Continue shopping</a
-                            >
+                                <p class="cart__total-cost">$ ${totalCost}</p>
+                                <a
+                                    href="${pageContext.request.contextPath}/Order/"
+                                    class="btn btn__solid-red cart__total-checkout"
+                                    >
+                                    <span>Checkout</span>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                                <a
+                                    href="${pageContext.request.contextPath}"
+                                    class="btn btn__outline-red cart__total-back"
+                                    >Continue shopping</a
+                                >
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--  -->
+            <!--  -->
         </div>
         <%@include file="../components/footer.jsp" %>
 

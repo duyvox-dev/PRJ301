@@ -80,7 +80,6 @@ public class ProductManager {
     }
 
     public boolean updateProduct(Product newProduct) {
-        System.out.println(newProduct.getId());
         String sql = "UPDATE [Product] SET  categoryID = ? , brandID = ?, name = ?, price = ?, description = ? , imageURL = ? , quantity = ?, soldQuantity= ?, createdDate = ?, lastModefiedDate = ?, isNew = ? WHERE id = ?";
         try {
             Connection con = DBUtils.getConnection();
@@ -227,7 +226,7 @@ public class ProductManager {
         int high = limit;
 
         ArrayList<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM [Product] WHERE name like ? ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String sql = "SELECT * FROM [Product] WHERE name like ? and deleteStatus = 0 ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -295,7 +294,7 @@ public class ProductManager {
         int count = 0;
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement ps = con.prepareStatement("select COUNT(id) AS [size] from [Product]");
+            PreparedStatement ps = con.prepareStatement("select COUNT(id) AS [size] from [Product] where deleteStatus = 0");
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 count = rs.getInt("size");
@@ -313,7 +312,7 @@ public class ProductManager {
         int high = limit;
 
         ArrayList<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM [Product] ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String sql = "SELECT * FROM [Product] WHERE  deleteStatus = 0 ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -345,7 +344,38 @@ public class ProductManager {
     }
 
     public Product getProduct(int id) {
-        String sql = "SELECT * FROM [Product] WHERE id = ?";
+        String sql = "SELECT * FROM [Product] WHERE id = ? and deleteStatus = 0";
+        Product product = null;
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setBrandID(rs.getInt("brandID"));
+                product.setCategoryID(rs.getInt("categoryID"));
+                product.setSellerID(rs.getInt("sellerID"));
+                product.setPrice(rs.getDouble("price"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setImageURL(rs.getString("imageURL"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setSoldQuantity(rs.getInt("soldQuantity"));
+                product.setCreatedDate(rs.getDate("createdDate"));
+                product.setLastModefiedDate(rs.getDate("lastModefiedDate"));
+                product.setIsNew(rs.getInt("isNew"));
+                product.setDeleteStatus(rs.getInt("deleteStatus"));
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return product;
+    }
+        public Product getProductBuyHistory(int id) {
+            // no ignore deleted product
+        String sql = "SELECT * FROM [Product] WHERE id = ? ";
         Product product = null;
         try {
             Connection con = DBUtils.getConnection();

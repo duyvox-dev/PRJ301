@@ -71,8 +71,10 @@
                 <div class="container">
                     <h2 class="checkout__heading">Checkout</h2>
                     <div class="row">
-                        <div class="col-md-7">
-                            <c:set var="productList" value="${requestScope.productList}"/>
+                        <c:set var="productList" value="${requestScope.productList}"/>
+                        <c:choose>
+                            <c:when test = "${not empty productList}">
+                                    <div class="col-md-7">
 
                             <div class="cart__list">
                                 <c:forEach var="o" items="${productList}"> 
@@ -163,6 +165,21 @@
                                 </div>
                             </div>
                         </div>
+                            </c:when>
+
+
+
+                            <c:otherwise>
+                                <h1 class="text-center text-danger">Empty cart
+                                      <a
+                                    href="${pageContext.request.contextPath}"
+                                    class="btn btn__outline-red cart__total-back"
+                                    >Continue shopping</a
+                                >
+                                </h1>
+                            </c:otherwise>
+                        </c:choose>
+                    
                     </div>
                 </div>
             </div>

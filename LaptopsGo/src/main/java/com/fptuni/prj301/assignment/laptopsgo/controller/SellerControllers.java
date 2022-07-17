@@ -73,14 +73,13 @@ public class SellerControllers extends HttpServlet {
             try {
                 HttpSession httpSession = request.getSession();
                 User userSession = (User) httpSession.getAttribute("userSession");
-
                 if (userSession == null || !userSession.getRole().equals("seller")) {
                     response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
                 }
                 if (productIdstr != null && !productIdstr.equals("")) {
                     int productId = Integer.parseInt(productIdstr);
                     Product product = productManager.getProduct(productId);
-                    if (userSession.getId() != (product.getId())) {
+                    if (userSession.getId() != (product.getSellerID())) {
                         error = "You are trying to delete other seller's product";
                     } else if (productManager.deleteProduct(productId)) {
                         success = "Delete successfully";
@@ -157,7 +156,7 @@ public class SellerControllers extends HttpServlet {
                     int categoryID = Integer.parseInt(categoryIDStr);
 
                     int brandID = Integer.parseInt(brandIDStr);
-                    
+
                     int quantity = Integer.parseInt(quantityStr);
                     double price = Double.parseDouble(priceStr);
                     String success = "";

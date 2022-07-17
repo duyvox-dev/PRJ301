@@ -147,7 +147,7 @@ public class UserControllers extends HttpServlet {
 
                     for (int j = 0; j < orDetails.size(); j++) {
                         OrderDetail orDetail = orDetails.get(j);
-                        Product product = productManager.getProduct(orDetail.getProductID());
+                        Product product = productManager.getProductBuyHistory(orDetail.getProductID());
                         product.setPrice(orDetail.getPrice());
                         products.add(product);
                     }

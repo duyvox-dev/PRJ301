@@ -83,6 +83,7 @@ public class CategoryManager {
         }
         return categories;
     }
+   
     public Category getCategory(int cateId) {
         Category gcate = null;
         try {

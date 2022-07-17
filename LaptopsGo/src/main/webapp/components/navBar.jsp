@@ -8,7 +8,7 @@
 <%@page import="com.fptuni.prj301.assignment.laptopsgo.model.User" %>
 <c:set var="user" value="${sessionScope.userSession}"/>
 <c:set var="role" value="${user.role}"/>
- <c:set var="searchKey" value="${requestScope.searchKey}"/>
+<c:set var="searchKey" value="${requestScope.searchKey}"/>
 <c:if test="${empty role}">
     <header>
         <nav class="navbar fixed-top navbar-expand-lg shadow">
@@ -57,14 +57,14 @@
                 <span class="navbar__toggler">
                     <i class="fa-solid fa-bars"></i>
                 </span>
-                 <form class="navbar__search" role="search" action="${pageContext.request.contextPath}/Product/search">
+                <form class="navbar__search" role="search" action="${pageContext.request.contextPath}/Product/search">
                     <input
                         class="navbar__search-text"
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
                         name="searchKey"
-                         value ="${searchKey}"
+                        value ="${searchKey}"
                         />
                     <button
                         class="btn btn-solid navbar__search-btn"
@@ -82,16 +82,24 @@
                     <!--  -->
 
                     <!-- all role -->
-                    <a href="#" class="navbar__user">
-                        <i class="fa-regular fa-user navbar__user-icon"></i>
-                        <span class="navbar__user-name">
+                    <div class="navbar__user-container">
+                        <a href="#" class="navbar__user">
+                            <i class="fa-regular fa-user navbar__user-icon"></i>
+                            <span class="navbar__user-name">
 
-                            <!--  -->
-                            <span class="">${user.fullname}</span>
-                        </span>
-                    </a>
+                                <!--  -->
+                                <span class="">${user.fullname}</span>
+                            </span>
+                        </a>
+                        <div class="navbar__user-dropdown">
+                            <a href="${pageContext.request.contextPath}/User/profile">Profile</a>
+                            <a href="${pageContext.request.contextPath}/User/buyHistory">Buy history</a>
+                        </div>
+                    </div>
+
+
                     <a
-                      href="${pageContext.request.contextPath}/User/logout"
+                        href="${pageContext.request.contextPath}/User/logout"
                         data-bs-toggle="tooltip"
                         data-bs-placement="bottom"
                         title="Logout"
@@ -123,7 +131,7 @@
                         placeholder="Search"
                         aria-label="Search"
                         name="searchKey"
-                         value ="${searchKey}"
+                        value ="${searchKey}"
                         />
                     <button
                         class="btn btn-solid navbar__search-btn"
@@ -143,17 +151,24 @@
                     </a>
                     <!--  -->
                     <!-- all role -->
-                    <a href="#" class="navbar__user">
-                        <i class="fa-regular fa-user navbar__user-icon"></i>
-                        <span class="navbar__user-name">
-                            <!-- role == admin, seller -->
-                            <span class="navbar__user-role text-capitalize">${user.role}</span>
-                            <!--  -->
-                            <span class="">${user.fullname}</span>
-                        </span>
-                    </a>
+                    <div class="navbar__user-container">
+                        <a href="#" class="navbar__user">
+                            <i class="fa-regular fa-user navbar__user-icon"></i>
+                            <span class="navbar__user-name">
+                                <!-- role == admin, seller -->
+                                <span class="navbar__user-role text-capitalize">${user.role}</span>
+                                <!--  -->
+                                <span class="">${user.fullname}</span>
+                            </span>
+                        </a>
+                        <div class="navbar__user-dropdown">
+                            <a href="${pageContext.request.contextPath}/User/profile">Profile</a>
+                            <a href="${pageContext.request.contextPath}/Seller/dashboard">Seller Dashboard</a>
+                        </div>
+                    </div>
+
                     <a
-                       href="${pageContext.request.contextPath}/User/logout"
+                        href="${pageContext.request.contextPath}/User/logout"
                         data-bs-toggle="tooltip"
                         data-bs-placement="bottom"
                         title="Logout"
@@ -178,13 +193,13 @@
                 <span class="navbar__toggler">
                     <i class="fa-solid fa-bars"></i>
                 </span>
-                <form class="navbar__search" role="search">
+                <form class="navbar__search" role="search" action="${pageContext.request.contextPath}/Product/search">
                     <input
                         class="navbar__search-text"
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
-                         value ="${searchKey}"
+                        value ="${searchKey}"
                         />
                     <button
                         class="btn btn-solid navbar__search-btn"
@@ -195,15 +210,25 @@
                 </form>
                 <div class="navbar__action">
                     <!-- all role -->
-                    <a href="#" class="navbar__user">
-                        <i class="fa-regular fa-user navbar__user-icon"></i>
-                        <span class="navbar__user-name">
-                            <!-- role == admin, seller -->
-                            <span class="navbar__user-role  text-capitalize">${user.role}</span>
-                            <!--  -->
-                            <span class="">${user.fullname}</span>
-                        </span>
-                    </a>
+                    <div class="navbar__user-container">
+                        <a href="#" class="navbar__user">
+                            <i class="fa-regular fa-user navbar__user-icon"></i>
+                            <span class="navbar__user-name">
+                                <!-- role == admin, seller -->
+                                <span class="navbar__user-role  text-capitalize">${user.role}</span>
+                                <!--  -->
+                                <span class="">${user.fullname}</span>
+                            </span>
+                        </a>
+                        <div class="navbar__user-dropdown ">
+                            <a href="${pageContext.request.contextPath}/User/profile">Profile</a>
+                            <a href="${pageContext.request.contextPath}/Admin/category">Category Management</a>
+                            <a href="${pageContext.request.contextPath}/Admin/brand">Brand Management</a>
+                            <a href="${pageContext.request.contextPath}/Admin/user">User Management</a>
+                            <a href="${pageContext.request.contextPath}/Admin/product">Product Management</a>
+                        </div>
+                    </div>
+
                     <a
                         href="${pageContext.request.contextPath}/User/logout"
                         data-bs-toggle="tooltip"

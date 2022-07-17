@@ -1,18 +1,19 @@
 <%-- 
-    Document   : login.jsp
-    Created on : Jun 30, 2022, 4:10:09 PM
+    Document   : cart
+    Created on : Jul 10, 2022, 7:43:56 PM
     Author     : vobao
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>LaptopsGo- Login</title>
-        <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
+        <title>Cart - LaptopsGo</title>
+        <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/images/favicon.ico" />
         <!-- CSS only -->
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
@@ -44,44 +45,32 @@
             referrerpolicy="no-referrer"
             />
         <!--  -->
-        <link rel="stylesheet" href="../css/login.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
     </head>
     <body>
-        <div class="login__page">
-            <div class="login__main shadow-sm">
-                <a class="logo" href="#">
-                    <i class="fa-solid fa-laptop-code"></i>
-                    <span>LaptopsGo</span>
+        <%@include file="../components/navBar.jsp" %>
+        <!-- Content -->
+        <div class="container p-5">
+
+            <h1 class="thankyou__heading">Thank you for orderring</h1>
+            <div class="thankyou__action">
+                <a
+                    href="${pageContext.request.contextPath}/"
+                    class="btn btn__outline-red cart__total-back"
+                    >Back to home</a
+                >
+                <a
+                    href="${pageContext.request.contextPath}/User/buyHistory"
+                    class="btn btn__solid-red cart__total-checkout"
+                    >
+                    <span>Buy history</span>
+                    <i class="fa-solid fa-angle-right"></i>
                 </a>
-                <form action="../User/login" class="login__form" method="POST">
-                    <div class="input__group">
-                        <input
-                            type="text"
-                            name="username"
-                            required
-                            placeholder="Username"
-                            />
-                    </div>
-                    <div class="input__group">
-                        <input
-                            type="password"
-                            name="password"
-                            required
-                            placeholder="Password"
-                            />
-                    </div>
-                    <p class="err__message text-danger">${requestScope.loginErrorMsg}</p>
 
-                    <button class="login__btn" type="submit">Log in</button>
-                </form>
-                <p class="link-to">
-                    <span>Dont have account?</span>
-                    <a href="${pageContext.request.contextPath}/auth/register.jsp" class="">Register</a>
-                </p>
             </div>
+            <!--  -->
         </div>
-
-
+        <%@include file="../components/footer.jsp" %>
 
         <!-- Bootstrap -->
         <script
@@ -96,8 +85,12 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         ></script>
-
+        <!-- Slick -->
+        <script
+            type="text/javascript"
+            src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+        ></script>
         <!--  -->
-        <script src="./js/script.js"></script>
+        <script src="${pageContext.request.contextPath}/js/script.js"></script>
     </body>
 </html>

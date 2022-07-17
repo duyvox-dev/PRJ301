@@ -107,7 +107,7 @@ public class OrderControllers extends HttpServlet {
                 cartManager.deleteCart(userSession.getId());
             }
 
-            request.getRequestDispatcher("/pages/checkout.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/thankyou.jsp").forward(request, response);
 
         }
     }
