@@ -78,20 +78,7 @@
                                     <c:set var="brandList" value="${requestScope.brandList}"/>
                                     <c:set var="currentBrand" value="${requestScope.currentBrand}"/>
 
-                                    <!--                                    <form action="" method="GET">
-                                    <c:forEach var="o" items="${brandList}"> 
-                                        <button type="submit" name="brand" value="${o.getName()}" class="filter__item">
-                                            <div class="filter__item-inner">
-                                                <img
-                                                    src="${o.getImageURL()}"
-                                                    alt=""
-                                                    class="filter__img"
-                                                    />
-                                            </div>
-                                        </button>
-                                        <input type="text" value ="filterBrand" hidden/>
-                                    </c:forEach>
-                                </form>-->
+
 
                                     <c:forEach var="o" items="${brandList}"> 
                                         <c:choose>

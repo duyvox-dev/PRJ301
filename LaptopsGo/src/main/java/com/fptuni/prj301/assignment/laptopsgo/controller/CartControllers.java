@@ -11,7 +11,6 @@ import com.fptuni.prj301.assignment.laptopsgo.model.Cart;
 import com.fptuni.prj301.assignment.laptopsgo.model.Product;
 import com.fptuni.prj301.assignment.laptopsgo.model.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

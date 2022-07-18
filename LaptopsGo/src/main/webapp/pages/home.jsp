@@ -194,37 +194,10 @@
 
 
                 </div>
-<!--                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <c:set var="currentPage" value="${requestScope.currentPage}"/>
-                        <c:set var="numberOfPages" value="${requestScope.numberOfPages}"/>
+                <div class="d-flex justify-content-center align-items-center">
+                    <a href="${pageContext.request.contextPath}/Product/search" class="btn btn__solid-red">See all product</a>
 
-                        <c:if test="${currentPage != 1}">
-                            <li class="page-item">
-                                <a class="page-link" href="./listing?page=${currentPage - 1}" tabindex="-1">Previous</a>
-                            </li>
-                        </c:if>
-                        <c:forEach begin="1" end="${numberOfPages}" varStatus="loop">
-                            <c:choose>
-                                <c:when test="${currentPage == loop.index}">
-                                    <li class="page-item"><a class="page-link" style="background-color:gray; color:white;" href="./listing?page=${loop.index}">${loop.index}</a></li>
-                                    </c:when>
-                                    <c:otherwise>
-                                    <li class="page-item"><a class="page-link" href="./listing?page=${loop.index}">${loop.index}</a></li>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                            <c:if test="${currentPage < numberOfPages}">
-                            <li class="page-item">
-                                <a class="page-link" href="./listing?page=${currentPage + 1}">Next</a>
-                            </li>
-                        </c:if>
-
-                    </ul>
-</nav>--><div class="d-flex justify-content-center align-items-center">
-                            <a href="${pageContext.request.contextPath}/Product/search" class="btn btn__solid-red">See all product</a>
-
-                        </div>
+                </div>
             </div>
         </div>
         <!--  -->

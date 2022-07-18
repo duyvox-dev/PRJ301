@@ -15,10 +15,10 @@ import com.fptuni.prj301.assignment.laptopsgo.model.OrderDetail;
 import com.fptuni.prj301.assignment.laptopsgo.model.Product;
 import com.fptuni.prj301.assignment.laptopsgo.model.User;
 import java.io.IOException;
-import java.sql.Date;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.regex.Pattern;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

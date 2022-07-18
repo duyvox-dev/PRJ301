@@ -24,7 +24,7 @@ LaptopsGo aims to provide an online marketplace for user to quickly and easily b
 #### Admin
 
 -   Ban user.
--   Search, Remove product.
+-   Remove product.
 -   Manage categories, brands.
 
 #### Buyer:
@@ -96,3 +96,32 @@ LaptopsGo aims to provide an online marketplace for user to quickly and easily b
 The database diagram bellow shows how the system's logical design is implemented in the database. Three roles Buyer, Seller and Admin entities in logical design are grouped into only one entity User in physical design.
 
 ![LaptopsGo Physical Database Design](./assets/database-design/physical-design.png)
+
+## System Design
+- Naming convention: camel case.
+- File naming convention: camel case for jsp files and pascal case for java files.
+- Naming CSS class name with BEM methodology.
+- Database: camel case for columns, pascal case for table.
+##### Folder structures:
+The images bellow show how the system is implemented using the MVC model.
+| Component | Image | 
+| --------- | ----- |
+| Controllers | (./assets/system-design/controller.png) |
+| Models | (./assets/system-design/model.png) |
+| Views | (./assets/system-design/pages.png) |
+
+## Conclusion
+##### Pros
+- Simple and convenient buying and selling experience.
+- Truthful adaptation of the MVC pattern.
+##### Cons
+- Missing some important features such as: report product, upload image, forgot password, notification, etc.
+- Messy codebase.
+##### What we have learned
+- MVC, MVC2 pattern.
+- Design Database
+- Design and implement a web application from start to finish.
+##### Possible future improvements
+- Add missing features.
+- Refactor methods and variables name.
+- Improve database design.

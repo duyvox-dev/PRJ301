@@ -15,7 +15,6 @@ import com.fptuni.prj301.assignment.laptopsgo.model.Category;
 import com.fptuni.prj301.assignment.laptopsgo.model.Product;
 import com.fptuni.prj301.assignment.laptopsgo.model.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.ServletException;
@@ -217,7 +216,7 @@ public class AdminControllers extends HttpServlet {
                 if (userSession == null || !userSession.getRole().equals("admin")) {
                     response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
                 }
-                
+
                 ArrayList<Product> products = productManager.getProductList();
                 HashMap<Integer, String> categories = cateManager.getCategoryListMap();
                 HashMap<Integer, String> brands = brandManager.getBrandListMap();
