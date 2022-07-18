@@ -52,7 +52,7 @@
         <!-- Content -->
         <div class="container p-5">
 
-            <h1 class="thankyou__heading">Thank you for orderring</h1>
+            <h1 class="thankyou__heading">Thank you for completing your order.</h1>
             <div class="thankyou__action">
                 <a
                     href="${pageContext.request.contextPath}/"

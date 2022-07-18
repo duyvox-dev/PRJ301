@@ -13,7 +13,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Seller - LaptopsGo</title>
+        <title>Brand Management - LaptopsGo</title>
         <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/images/favicon.ico" />
         <!-- CSS only -->
         <link
@@ -62,7 +62,7 @@
                 <div class="container">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/Seller/dashboard">Admin Brand Management</a></li>
+                        <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/Admin/brand">Admin Brand Management</a></li>
 
                         <li class="breadcrumb-item active text-capitalize" aria-current="page">
                             ${action} Brand
