@@ -106,9 +106,9 @@ The database diagram bellow shows how the system's logical design is implemented
 The images bellow show how the system is implemented using the MVC model.
 | Component | Image | 
 | --------- | ----- |
-| Controllers | (./assets/system-design/controller.png) |
-| Models | (./assets/system-design/model.png) |
-| Views | (./assets/system-design/pages.png) |
+| Controllers | ![LaptopsGo Controllers](./assets/system-design/controller.png) |
+| Models | ![LaptopsGo Model](./assets/system-design/model.png) |
+| Views | ![LaptopsGo View](./assets/system-design/pages.png) |
 
 ## Conclusion
 ##### Pros
